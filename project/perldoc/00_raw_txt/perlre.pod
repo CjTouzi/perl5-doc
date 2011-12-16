@@ -1,4 +1,4 @@
-=head1 NAME
+hE
 X<regular expression> X<regex> X<regexp>
 
 perlre - Perl regular expressions
