@@ -1,44 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Perldoc-cn by songzan</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <title>Perldoc-cn by songzan</title>
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/songzan/perldoc-cn">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/songzan/perldoc-cn/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/songzan/perldoc-cn/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <div id="container">
+      <div class="inner">
 
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
+        <header>
           <h1>Perldoc-cn</h1>
-          <p>Perldoc Help Chinese Planning</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/songzan">songzan</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
+          <h2>Perldoc Help Chinese Planning</h2>
+        </header>
 
-        <h1>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/songzan/perldoc-cn/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/songzan/perldoc-cn/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/songzan/perldoc-cn" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
 <a id="title" class="anchor" href="#title" aria-hidden="true"><span class="octicon octicon-link"></span></a>TITLE</h1>
 
 <p>Synopsis 5: Regexes and Rules</p>
@@ -53,7 +46,7 @@ Version: 176
 </code></pre>
 
 <p>This document summarizes Apocalypse 5, which is about the new regex
-syntax.  We now try to call them <code>regex</code> rather than "regular
+syntax.  We now try to call them <em>regex</em> rather than "regular
 expressions" because they haven't been regular expressions for a
 long time, and we think the popular term "regex" is in the process of
 becoming a technical term with a precise meaning of: "something you do
@@ -65,14 +58,14 @@ distinctions between which parts of our patterns and grammars are
 to be treated as declarative, and which parts as procedural.</p>
 
 <p>In any case, when referring to recursive patterns within a grammar,
-the terms <code>rule</code> and <code>token</code> are generally preferred over <code>regex</code>.</p>
+the terms <em>rule</em> and <em>token</em> are generally preferred over <em>regex</em>.</p>
 
 <h1>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h1>
 
-<p>In essence, Perl-6 natively implements Parsing Expression Grammars (PEGs)
-as an extension of regular expression notation. PEGs require that you
-provide a "pecking order" for ambiguous parses. Perl-6's pecking order
+<p>In essence, Perl 6 natively implements Parsing Expression Grammars (PEGs)
+as an extension of regular expression notation.  PEGs require that you
+provide a "pecking order" for ambiguous parses.  Perl 6's pecking order
 is determined by a multi-level tie-breaking test:</p>
 
 <pre><code>1) Longest token matching: food\s+ beats foo by 2 or more positions
@@ -91,22 +84,22 @@ backtracks, the next best rule is chosen.  That is, the pecking order
 determines a candidate list; just because one candidate is chosen does not
 mean the rest are thrown away.  They may, however, be explicitly thrown away
 by an appropriate backtracking control (sometimes called a "cut" operator,
-but Perl 6 has several of them, depending on how much you want to cut).</p>
+but Perl 6 has several of them, depending on how much you want to cut).</p>
 
 <h1>
 <a id="new-match-result-and-capture-variables" class="anchor" href="#new-match-result-and-capture-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>New match result and capture variables</h1>
 
 <p>The underlying match object is now available via the <code>$/</code>
-variable, which is implicitly lexically scoped. All user access to the
+variable, which is implicitly lexically scoped.  All user access to the
 most recent match is through this variable, even when
 it doesn't look like it.  The individual capture variables (such as <code>$0</code>,
-C&lt;$1&gt;, etc.) are just elements of <code>$/</code>.</p>
+<code>$1</code>, etc.) are just elements of <code>$/</code>.</p>
 
-<p>By the way, unlike in Perl 5, the numbered capture variables now
-start at <code>$0</code> instead of C&lt;$1&gt;.  See below.</p>
+<p>By the way, unlike in Perl 5, the numbered capture variables now
+start at <code>$0</code> instead of <code>$1</code>.  See below.</p>
 
-<p>In order to detect accidental use of Perl 5's unrelated <code>$/</code>
-variable, Perl 6's <code>$/</code> variable may not be assigned to directly.</p>
+<p>In order to detect accidental use of Perl 5's unrelated <code>$/</code>
+variable, Perl 6's <code>$/</code> variable may not be assigned to directly.</p>
 
 <pre><code>$/ = $x;   # "Unsupported use of $/ variable as input record separator"
 $/ := $x;  # OK, binding
@@ -117,17 +110,15 @@ $/ RR= $x; # OK, metaoperator
 <h1>
 <a id="unchanged-syntactic-features" class="anchor" href="#unchanged-syntactic-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unchanged syntactic features</h1>
 
-<p>The following regex features use the same syntax as in Perl 5:</p>
+<p>The following regex features use the same syntax as in Perl 5:</p>
 
-<p>Capturing: (...)</p>
-
-<p>Repetition quantifiers: *, +, and ?</p>
-
-<p>Alternatives:  |</p>
-
-<p>Backslash escape:  \</p>
-
-<p>Minimal matching suffix: ??,  *?,  +?</p>
+<ul>
+<li>Capturing: (...)</li>
+<li>Repetition quantifiers: *, +, and ?</li>
+<li>Alternatives:  |</li>
+<li>Backslash escape:  \</li>
+<li>Minimal matching suffix:   ??,  *?,  +?</li>
+</ul>
 
 <p>While the syntax of <code>|</code> does not change, the default semantics do
 change slightly.  We are attempting to concoct a pleasing mixture
@@ -139,7 +130,7 @@ below on "Longest-token matching".</p>
 <h1>
 <a id="simplified-lexical-parsing-of-patterns" class="anchor" href="#simplified-lexical-parsing-of-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simplified lexical parsing of patterns</h1>
 
-<p>Unlike traditional regular expressions, Perl 6 does not require
+<p>Unlike traditional regular expressions, Perl 6 does not require
 you to memorize an arbitrary list of metacharacters.  Instead it
 classifies characters by a simple rule.  All glyphs (graphemes)
 whose base characters are either the underscore (<code>_</code>) or have
@@ -152,7 +143,7 @@ but any immediately following alphanumeric character is not).</p>
 <p>All other glyphs--including whitespace--are exactly the opposite:
 they are always considered metasyntactic (i.e. non-self-matching) and
 must be escaped or quoted to make them literal.  As is traditional,
-they may be individually escaped with <code>\</code>, but in Perl 6 they may
+they may be individually escaped with <code>\</code>, but in Perl 6 they may
 be also quoted as follows.</p>
 
 <p>Sequences of one or more glyphs of either type (i.e. any glyphs at all)
@@ -173,21 +164,21 @@ Quotes create a quantifiable atom, so while</p>
 
 <p>Here is a table that summarizes the distinctions:</p>
 
-<pre><code>             Alphanumerics        Non-alphanumerics         Mixed
-</code></pre>
+<pre><code>                Alphanumerics        Non-alphanumerics         Mixed
 
-<p>Literal glyphs   a    1    _        *  \$  .   \   \'       K-9!
- Metasyntax      \a   \1   _         *   $   .    \    '      \K-\9!
- Quoted glyphs   'a'  '1'  '_'       '*' '$' '.' '\' '\''     'K-9!'</p>
+Literal glyphs   a    1    _        \*  \$  \.   \\   \'       K\-9\!
+Metasyntax      \a   \1   \_         *   $   .    \    '      \K-\9!
+Quoted glyphs   'a'  '1'  '_'       '*' '$' '.' '\\' '\''     'K-9!'
+</code></pre>
 
 <p>In other words, identifier glyphs are literal (or metasyntactic when
 escaped), non-identifier glyphs are metasyntactic (or literal when
 escaped), and single quotes make everything inside them literal.</p>
 
 <p>Note, however, that not all non-identifier glyphs are currently
-meaningful as metasyntax in Perl 6 regexes (e.g. <code>\1</code> C&lt;_&gt; C&lt;-&gt;
-C&lt;!&gt;). It is more accurate to say that all unescaped non-identifier
-glyphs are <code>potential</code> metasyntax, and reserved for future use.
+meaningful as metasyntax in Perl 6 regexes (e.g. <code>\1</code> <code>\_</code> <code>-</code>
+<code>!</code>). It is more accurate to say that all unescaped non-identifier
+glyphs are <em>potential</em> metasyntax, and reserved for future use.
 If you use such a sequence, a helpful compile-time error is issued
 indicating that you either need to quote the sequence or define a new
 operator to recognize it.</p>
@@ -199,13 +190,13 @@ complain that the regex is missing its terminator.</p>
 <h1>
 <a id="modifiers" class="anchor" href="#modifiers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modifiers</h1>
 
-<p>The extended syntax (C) is no longer required...it's the default.
+<ul>
+<li>The extended syntax (<code>/x</code>) is no longer required...it's the default.
 (In fact, it's pretty much mandatory--the only way to get back to
-the old syntax is with the C&lt;:Perl5&gt;/C&lt;:P5&gt; modifier.)</p>
-
-<p>There are no <code>/s</code> or <code>/m</code> modifiers (changes to the meta-characters
-replace them - see below).</p>
-
+the old syntax is with the <code>:Perl5</code>/<code>:P5</code> modifier.)</li>
+<li>There are no <code>/s</code> or <code>/m</code> modifiers (changes to the meta-characters
+replace them - see below).</li>
+<li>
 <p>There is no <code>/e</code> evaluation modifier on substitutions; instead use:</p>
 
 <pre><code> s/pattern/{ doit() }/
@@ -225,8 +216,9 @@ replace them - see below).</p>
 
 <pre><code> s[pattern] = doit().EVAL
 </code></pre>
-
-<p>Modifiers are now placed as adverbs at the <code>start</code> of a match/substitution:</p>
+</li>
+<li>
+<p>Modifiers are now placed as adverbs at the <em>start</em> of a match/substitution:</p>
 
 <pre><code> m:g:i/\s* (\w*) \s* ,?/;
 </code></pre>
@@ -235,7 +227,8 @@ replace them - see below).</p>
 separated from the final modifier by whitespace if it would otherwise be taken
 as an argument to the preceding modifier (which is true if and only if
 the next character is a left parenthesis.)</p>
-
+</li>
+<li>
 <p>The single-character modifiers also have longer versions:</p>
 
 <pre><code>     :i        :ignorecase
@@ -243,8 +236,9 @@ the next character is a left parenthesis.)</p>
      :g        :global
      :r        :ratchet
 </code></pre>
-
-<p>The <code>:i</code> (or C&lt;:ignorecase&gt;) modifier causes case distinctions to be
+</li>
+<li>
+<p>The <code>:i</code> (or <code>:ignorecase</code>) modifier causes case distinctions to be
 ignored in its lexical scope, but not in its dynamic scope.  That is,
 subrules always use their own case settings.  The amount of case folding
 depends on the current context.  In byte and codepoint mode, level 1 case folding
@@ -288,8 +282,9 @@ tcuc()
 <p>In any case, only the officially matched string part of the pattern
 match counts, so any sort of lookahead or contextual matching is not
 included in the analysis.</p>
-
-<p>The <code>:m</code> (or C&lt;:ignoremark&gt;) modifier scopes exactly like C&lt;:ignorecase&gt;
+</li>
+<li>
+<p>The <code>:m</code> (or <code>:ignoremark</code>) modifier scopes exactly like <code>:ignorecase</code>
 except that it ignores marks (accents and such) instead of case.  It is equivalent
 to taking each grapheme (in both target and pattern), converting
 both to NFD (maximally decomposed) and then comparing the two base
@@ -299,7 +294,7 @@ of determining the truth of the assertion; the actual text matched
 includes all ignored characters, including any that follow the final
 base character.</p>
 
-<p>The <code>:mm</code> (or C&lt;:samemark&gt;) variant may be used on a substitution to change the
+<p>The <code>:mm</code> (or <code>:samemark</code>) variant may be used on a substitution to change the
 substituted string to the same mark/accent pattern as the matched string.
 It implies the same pattern semantics as <code>:m</code> above, so it is not necessary
 to put both <code>:m</code> and <code>:mm</code>.</p>
@@ -309,9 +304,10 @@ the right string is longer than the left one, the remaining characters
 are substituted without any modification.  (Note that NFD/NFC distinctions
 are usually immaterial, since Perl encapsulates that in grapheme mode.)
 Under <code>:sigspace</code> the preceding rules are applied word by word.</p>
-
-<p>The <code>:c</code> (or C&lt;:continue&gt;) modifier causes the pattern to continue
-scanning from the specified position (defaulting to C&lt;($/ ?? $/.to !! 0)&gt;):</p>
+</li>
+<li>
+<p>The <code>:c</code> (or <code>:continue</code>) modifier causes the pattern to continue
+scanning from the specified position (defaulting to <code>($/ ?? $/.to !! 0)</code>):</p>
 
 <pre><code> m:c($p)/ pattern /     # start scanning at position $p
 </code></pre>
@@ -322,17 +318,18 @@ has an implicit <code>:c</code> modifier.</p>
 
 <p>String positions are of type <code>StrPos</code> and should generally be treated
 as opaque.</p>
-
-<p>The <code>:p</code> (or C&lt;:pos&gt;) modifier causes the pattern to try to match only at
+</li>
+<li>
+<p>The <code>:p</code> (or <code>:pos</code>) modifier causes the pattern to try to match only at
 the specified string position:</p>
 
 <pre><code> m:pos($p)/ pattern /  # match at position $p
 </code></pre>
 
-<p>If the argument is omitted, it defaults to C&lt;($/ ?? $/.to !! 0)&gt;.  (Unlike in
-Perl 5, the string itself has no clue where its last match ended.)
+<p>If the argument is omitted, it defaults to <code>($/ ?? $/.to !! 0)</code>.  (Unlike in
+Perl 5, the string itself has no clue where its last match ended.)
 All subrule matches are implicitly passed their starting position.
-Likewise, the pattern you supply to a Perl macro's C
+Likewise, the pattern you supply to a Perl macro's <code>is parsed</code>
 trait has an implicit <code>:p</code> modifier.</p>
 
 <p>Note that</p>
@@ -345,19 +342,20 @@ trait has an implicit <code>:p</code> modifier.</p>
 <pre><code> m:p($p)/.*? &lt;( pattern )&gt; /
 </code></pre>
 
-<p>All of <code>:g</code>, C&lt;:ov&gt;, <code>:nth</code>, and C&lt;:x&gt; are incompatible with <code>:p</code> and
-will fail, recommending use of <code>:c</code> instead.  The C&lt;:ex&gt; modifier is allowed
+<p>All of <code>:g</code>, <code>:ov</code>, <code>:nth</code>, and <code>:x</code> are incompatible with <code>:p</code> and
+will fail, recommending use of <code>:c</code> instead.  The <code>:ex</code> modifier is allowed
 but will produce only matches at that position.</p>
-
+</li>
+<li>
 <p>The new <code>:s</code> (<code>:sigspace</code>) modifier causes certain whitespace sequences
 to be considered "significant"; they are replaced by a whitespace
-matching rule, C&lt;&lt; &lt;.ws&gt; &gt;&gt;.  Only whitespace sequences immediately following a
+matching rule, <code>&lt;.ws&gt;</code>.  Only whitespace sequences immediately following a
 matching construct (atom, quantified atom, or assertion) are eligible.
 Hence, initial whitespace is ignored at the front of
 any regex, to make it easy to write rules that can participate in longest-token-matching
 alternations.  That is,</p>
 
-<pre><code> m:s/ next cmd '=' &lt;condition&gt;/
+<pre><code> m:s/ next cmd '='   &lt;condition&gt;/
 </code></pre>
 
 <p>is the same as:</p>
@@ -380,8 +378,8 @@ alternations.  That is,</p>
 <pre><code> m { (a|\*) &lt;.ws&gt; (b|\+) }
 </code></pre>
 
-<p>C&lt;&lt; &lt;.ws&gt; &gt;&gt; can't decide what to do until it sees the data.
-It still does the right thing.  If not, define your own C&lt;&lt; ws &gt;&gt;
+<p><code>&lt;.ws&gt;</code> can't decide what to do until it sees the data.
+It still does the right thing.  If not, define your own <code>ws</code>
 and <code>:sigspace</code> will use that.</p>
 
 <p>Whitespace is ignored not just at the front of any rule that might
@@ -400,8 +398,8 @@ place your whitespace outside of the brackets containing the alternation.</p>
 <pre><code>token TOP { ^ &lt;.ws&gt; &lt;stuff&gt; &lt;.ws&gt; $ &lt;.ws&gt; }
 </code></pre>
 
-<p>but note that the final C&lt;&lt; &lt;.ws&gt; &gt;&gt; always matches the null string, since <code>$</code> asserts end of string.
-Also, if your <code>TOP</code> rule does not anchor with C&lt;^&gt;, it might not match initial whitespace.</p>
+<p>but note that the final <code>&lt;.ws&gt;</code> always matches the null string, since <code>$</code> asserts end of string.
+Also, if your <code>TOP</code> rule does not anchor with <code>^</code>, it might not match initial whitespace.</p>
 
 <p>Specifically, the following constructs turn following whitespace into sigspace:</p>
 
@@ -412,7 +410,7 @@ $foo @bar
 (...) [...] &lt;...&gt; as a whole atoms
 (...)* [...]* &lt;...&gt;* as quantified atoms
 &lt;( and )&gt;
-« and » (but don't use « that way!)
+? and ? (but don't use ? that way!)
 </code></pre>
 
 <p>and these do not:</p>
@@ -438,8 +436,8 @@ quantifier.)</p>
 the parser rules automatically handle whitespace policy for you.
 In this context, whitespace often includes comments, depending on
 how the grammar chooses to define its whitespace rule.  Although the
-default C&lt;&lt; &lt;.ws&gt; &gt;&gt; subrule recognizes no comment construct, any
-grammar is free to override the rule.  The C&lt;&lt; &lt;.ws&gt; &gt;&gt; rule is not
+default <code>&lt;.ws&gt;</code> subrule recognizes no comment construct, any
+grammar is free to override the rule.  The <code>&lt;.ws&gt;</code> rule is not
 intended to mean the same thing everywhere.</p>
 
 <p>It's also possible to pass an argument to <code>:sigspace</code> specifying
@@ -447,14 +445,14 @@ a completely different subrule to apply.  This can be any rule, it
 doesn't have to match whitespace.  When discussing this modifier, it is
 important to distinguish the significant whitespace in the pattern from
 the "whitespace" being matched, so we'll call the pattern's whitespace
-<code>sigspace</code>, and generally reserve <code>whitespace</code> to indicate whatever
-C&lt;&lt; &lt;.ws&gt; &gt;&gt; matches in the current grammar. The correspondence
+<em>sigspace</em>, and generally reserve <em>whitespace</em> to indicate whatever
+<code>&lt;.ws&gt;</code> matches in the current grammar. The correspondence
 between sigspace and whitespace is primarily metaphorical, which is
 why the correspondence is both useful and (potentially) confusing.</p>
 
 <p>The <code>:ss</code> (or <code>:samespace</code>) variant may be used on substitutions to
 do smart space mapping in addition to smart space matching.  (That is,
-<code>:ss</code> implies <code>:s</code>.)  For each sigspace-induced call to C&lt;&lt;  &gt;&gt;
+<code>:ss</code> implies <code>:s</code>.)  For each sigspace-induced call to <code>&lt;ws&gt;</code>
 on the left, the matched whitespace is copied over to the corresponding
 slot on the right, as represented by a single whitespace character
 in the replacement string wherever space replacement is desired.
@@ -490,8 +488,9 @@ ss/match some words/replace those words/    # same as s:samespace
 ss/b c d/x y z/;
 </code></pre>
 
-<p>ends up with a value of "C".</p>
-
+<p>ends up with a value of "<code>a x\ny\tz</code>".</p>
+</li>
+<li>
 <p>New modifiers specify Unicode level:</p>
 
 <pre><code> m:bytes  / .**2 /       # match two bytes
@@ -501,31 +500,32 @@ ss/b c d/x y z/;
 </code></pre>
 
 <p>There are corresponding pragmas to default to these levels.  Note that
-the C&lt;:chars&gt; modifier is always redundant because dot always matches
+the <code>:chars</code> modifier is always redundant because dot always matches
 characters at the highest level allowed in scope.  This highest level
 may be identical to one of the other three levels, or it may be more
-specific than C&lt;:graphs&gt; when a particular language's character rules
+specific than <code>:graphs</code> when a particular language's character rules
 are in use.  Note that you may not specify language-dependent character
-processing without specifying <code>which</code> language you're depending on.
-[Conjecture: the C&lt;:chars&gt; modifier could take an argument specifying
+processing without specifying <em>which</em> language you're depending on.
+[Conjecture: the <code>:chars</code> modifier could take an argument specifying
 which language's rules to use for this match.]</p>
-
-<p>The new C&lt;:Perl5&gt;/C&lt;:P5&gt; modifier allows Perl 5 regex syntax to be
+</li>
+<li>
+<p>The new <code>:Perl5</code>/<code>:P5</code> modifier allows Perl 5 regex syntax to be
 used instead.  (It does not go so far as to allow you to put your
 modifiers at the end.)  For instance,</p>
 
 <pre><code> m:P5/(?mi)^(?:[a-z]|\d){1,2}(?=\s)/
 </code></pre>
 
-<p>is equivalent to the Perl 6 syntax:</p>
+<p>is equivalent to the Perl 6 syntax:</p>
 
 <pre><code>m/ :i ^^ [ &lt;[a..z]&gt; || \d ] ** 1..2 &lt;?before \s&gt; /
 </code></pre>
-
-<p>Any integer modifier specifies a count. What kind of count is
-determined by the character that follows.</p>
-
-<p>If followed by an <code>x</code>, it means repetition.  Use C&lt;:x(4)&gt; for the
+</li>
+<li><p>Any integer modifier specifies a count. What kind of count is
+determined by the character that follows.</p></li>
+<li>
+<p>If followed by an <code>x</code>, it means repetition.  Use <code>:x(4)</code> for the
 general form.  So</p>
 
 <pre><code> s:4x [ (&lt;.ident&gt;) '=' (\N+) $$] = "$0 =&gt; $1";
@@ -542,11 +542,12 @@ general form.  So</p>
 </code></pre>
 
 <p>except that the string is unchanged unless all four matches are found.
-However, ranges are allowed, so you can say C&lt;:x(1..4)&gt; to change anywhere
+However, ranges are allowed, so you can say <code>:x(1..4)</code> to change anywhere
 from one to four matches.</p>
-
+</li>
+<li>
 <p>If the number is followed by an <code>st</code>, <code>nd</code>, <code>rd</code>, or <code>th</code>, it means
-find the <code>N</code>th occurrence.  Use <code>:nth(3)</code> for the general form.  So</p>
+find the _N_th occurrence.  Use <code>:nth(3)</code> for the general form.  So</p>
 
 <pre><code> s:3rd/(\d+)/@data[$0]/;
 </code></pre>
@@ -575,13 +576,14 @@ of integers if you really need that capability:</p>
 <pre><code>:nth(grep *.oracle, 1..*)
 </code></pre>
 
-<p>If both <code>:nth</code> and C&lt;:x&gt; are present, the matching routine looks for submatches
+<p>If both <code>:nth</code> and <code>:x</code> are present, the matching routine looks for submatches
 that match with <code>:nth</code>. If the number of post-nth matches is compatible with
-the constraint in C&lt;:x&gt;, the whole match succeeds with the highest possible
-number of submatches. The combination of <code>:nth</code> and C&lt;:x&gt; typically only
+the constraint in <code>:x</code>, the whole match succeeds with the highest possible
+number of submatches. The combination of <code>:nth</code> and <code>:x</code> typically only
 makes sense if <code>:nth</code> is not a single scalar.</p>
-
-<p>With the new C&lt;:ov&gt; (C&lt;:overlap&gt;) modifier, the current regex will
+</li>
+<li>
+<p>With the new <code>:ov</code> (<code>:overlap</code>) modifier, the current regex will
 match at all possible character positions (including overlapping)
 and return all matches in list context, or a disjunction of matches
 in item context.  The first match at any position is returned.
@@ -594,8 +596,9 @@ respect to the starting positions.</p>
      @substrings = slice @();    # bracadabr cadabr dabr br
  }
 </code></pre>
-
-<p>With the new C&lt;:ex&gt; (C&lt;:exhaustive&gt;) modifier, the current regex will
+</li>
+<li>
+<p>With the new <code>:ex</code> (<code>:exhaustive</code>) modifier, the current regex will
 match every possible way (including overlapping) and return a list of
 all matches.</p>
 
@@ -614,13 +617,14 @@ solutions.)</p>
  }
 </code></pre>
 
-<p>Note that the C&lt;~~&gt; above can return as soon as the first match is found,
-and the rest of the matches may be performed lazily by C&lt;@()&gt;.</p>
-
-<p>The new C&lt;:rw&gt; modifier causes this regex to <code>claim</code> the current
+<p>Note that the <code>~~</code> above can return as soon as the first match is found,
+and the rest of the matches may be performed lazily by <code>@()</code>.</p>
+</li>
+<li>
+<p>The new <code>:rw</code> modifier causes this regex to <em>claim</em> the current
 string for modification rather than assuming copy-on-write semantics.
 All the captures in <code>$/</code> become lvalues into the string, such
-that if you modify, say, C&lt;$1&gt;, the original string is modified in
+that if you modify, say, <code>$1</code>, the original string is modified in
 that location, and the positions of all the other fields modified
 accordingly (whatever that means).  In the absence of this modifier
 (especially if it isn't implemented yet, or is never implemented),
@@ -628,17 +632,17 @@ all pieces of <code>$/</code> are considered copy-on-write, if not read-only.</p
 
 <p>[Conjecture: this should really associate a pattern with a string variable,
 not a (presumably immutable) string value.]</p>
-
-<p>The new C&lt;:r&gt; or C&lt;:ratchet&gt; modifier causes this regex to not backtrack by default.
+</li>
+<li><p>The new <code>:r</code> or <code>:ratchet</code> modifier causes this regex to not backtrack by default.
 (Generally you do not use this modifier directly, since it's implied by
 <code>token</code> and <code>rule</code> declarations.)  The effect of this modifier is
 to imply a <code>:</code> after every atom, including but not limited to
-<code>*</code>, C&lt;+&gt;, and <code>?</code> quantifiers, as well as alternations.  Explicit
+<code>*</code>, <code>+</code>, and <code>?</code> quantifiers, as well as alternations.  Explicit
 backtracking modifiers on quantified atoms, such as <code>**</code>, will override this.
 (Note: for portions of patterns subject to longest-token analysis, a <code>:</code>
-is ignored in any case, since there will be no backtracking necessary.)</p>
-
-<p>The <code>:i</code>, <code>:m</code>, C&lt;:r&gt;, <code>:s</code>, <code>:dba</code>, C&lt;:Perl5&gt;, and Unicode-level modifiers can be
+is ignored in any case, since there will be no backtracking necessary.)</p></li>
+<li>
+<p>The <code>:i</code>, <code>:m</code>, <code>:r</code>, <code>:s</code>, <code>:dba</code>, <code>:Perl5</code>, and Unicode-level modifiers can be
 placed inside the regex (and are lexically scoped):</p>
 
 <pre><code> m/:s alignment '=' [:i left|right|cent[er|re]] /
@@ -651,17 +655,20 @@ brackets for args to the adverb.  In particular:</p>
 m/:foo{xxx}/        Parses as :foo {xxx}
 m/:foo&lt;xxx&gt;/        Parses as :foo &lt;xxx&gt;
 </code></pre>
-
+</li>
+<li>
 <p>User-defined modifiers will be possible:</p>
 
 <pre><code>     m:fuzzy/pattern/;
 </code></pre>
-
+</li>
+<li>
 <p>User-defined modifiers can also take arguments, but only in parentheses:</p>
 
 <pre><code>     m:fuzzy('bare')/pattern/;
 </code></pre>
-
+</li>
+<li>
 <p>To use parens for your delimiters you have to separate:</p>
 
 <pre><code>     m:fuzzy (pattern);
@@ -671,13 +678,14 @@ m/:foo&lt;xxx&gt;/        Parses as :foo &lt;xxx&gt;
 
 <pre><code>     m:fuzzy(fuzzyargs); pattern ;
 </code></pre>
-
+</li>
+<li>
 <p>Any grammar regex is really just a kind of method, and you may
 declare variables in such a routine using a colon followed by any
-scope declarator parsed by the Perl 6 grammar, including <code>my</code>,
+scope declarator parsed by the Perl 6 grammar, including <code>my</code>,
 <code>our</code>, <code>state</code>, and <code>constant</code>.  (As quasi declarators, <code>temp</code>
 and <code>let</code> are also recognized.)  A single statement (up through
-a terminating semicolon or line-final closing brace) is parsed as normal Perl-6 code:</p>
+a terminating semicolon or line-final closing brace) is parsed as normal Perl 6 code:</p>
 
 <pre><code>token prove-nondeterministic-parsing {
     :my $threshold = rand;
@@ -695,25 +703,30 @@ pattern matches:</p>
     ...
 }
 </code></pre>
+</li>
+</ul>
 
-<p>=head2 Allowed modifiers</p>
+<h2>
+<a id="allowed-modifiers" class="anchor" href="#allowed-modifiers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Allowed modifiers</h2>
 
 <p>Some modifiers are allowed in all possible places where modifiers can occur,
 but not all of them.</p>
 
 <p>In general, a modifier that affects the compilation of a regex (like <code>:i</code>)
 must be known at compile time. A modifier that affects only the calling
-behaviour, and not the regex itself (eg. C&lt;:pos&gt;, C&lt;:overlap&gt;, C&lt;:x(4)&gt;) may
+behaviour, and not the regex itself (eg. <code>:pos</code>, <code>:overlap</code>, <code>:x(4)</code>) may
 only appear on constructs that involve a call (like <code>m//</code> and <code>s///</code>), and
-not on C. Finally overlapping is disallowed on substitutions, while
+not on <code>rx//</code>. Finally overlapping is disallowed on substitutions, while
 adverbs that affect modifications (eg. <code>:samecase</code>) are only allowed on
 substitutions.</p>
 
 <p>These principle result in the following rules:</p>
 
-<p>The C&lt;:ignorecase&gt;, C&lt;:ignoremark&gt;, <code>:sigspace</code>, C&lt;:ratchet&gt; and C&lt;:Perl5&gt;
+<ul>
+<li>
+<p>The <code>:ignorecase</code>, <code>:ignoremark</code>, <code>:sigspace</code>, <code>:ratchet</code> and <code>:Perl5</code>
 modifiers and their short forms are allowed everywhere: inside a regex,
-and on <code>m//</code>, C and <code>s///</code> constructs. An implementation may require
+and on <code>m//</code>, <code>rx//</code> and <code>s///</code> constructs. An implementation may require
 that their value is known at compile time, and give a compile-time error
 message if that is not the case.</p>
 
@@ -722,62 +735,64 @@ rx:i(1) /hello/         # OK
 my $i = 1;
 rx:i($i) /hello/        # may error out at compile time
 </code></pre>
-
-<p>The <code>:samecase</code>, <code>:samespace</code> and C&lt;:samemark&gt; modifiers (and their short
-forms) are only allowed on substitutions (<code>s///</code> and C<s>).</s></p>
-
-<p>The C&lt;:overlap&gt; and C&lt;:exhaustive&gt; modifiers (and their short forms) are only
-allowed on matches (ie <code>m//</code>), not on substitutions or regex quotes.</p>
-
-<p>The C&lt;:pos&gt;, C&lt;:continue&gt;, C&lt;:x&gt; and <code>:nth</code> modifiers and their aliases are
+</li>
+<li><p>The <code>:samecase</code>, <code>:samespace</code> and <code>:samemark</code> modifiers (and their short
+forms) are only allowed on substitutions (<code>s///</code> and <code>s[] = ...</code>).</p></li>
+<li>The <code>:overlap</code> and <code>:exhaustive</code> modifiers (and their short forms) are only
+allowed on matches (ie <code>m//</code>), not on substitutions or regex quotes.</li>
+<li>The <code>:pos</code>, <code>:continue</code>, <code>:x</code> and <code>:nth</code> modifiers and their aliases are
 only allowed on constructs that involve immediate calls, eg. <code>m//</code> and <code>s///</code>
-(but not on C).</p>
-
-<p>The <code>:dba</code> adverb is only allowed inside a regex.</p>
+(but not on <code>rx//</code>).</li>
+<li>The <code>:dba</code> adverb is only allowed inside a regex.</li>
+</ul>
 
 <h1>
 <a id="changed-metacharacters" class="anchor" href="#changed-metacharacters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changed metacharacters</h1>
 
-<p>A dot <code>.</code> now matches <code>any</code> character including newline. (The <code>/s</code>
-modifier is gone.)</p>
-
-<p>C&lt;^&gt; and <code>$</code> now always match the start/end of a string, like the old
-C&lt;\A&gt; and C&lt;\z&gt;. (The <code>/m</code> modifier is gone.)  On the right side of
-an embedded C&lt;<del>&gt; or C&lt;!</del>&gt; operator they always match the start/end
+<ul>
+<li>A dot <code>.</code> now matches <em>any</em> character including newline. (The <code>/s</code>
+modifier is gone.)</li>
+<li>
+<code>^</code> and <code>$</code> now always match the start/end of a string, like the old
+<code>\A</code> and <code>\z</code>. (The <code>/m</code> modifier is gone.)  On the right side of
+an embedded <code>~~</code> or <code>!~~</code> operator they always match the start/end
 of the indicated submatch because that submatch is logically being
-treated as a separate string.</p>
-
-<p>A <code>$</code> no longer matches an optional preceding <code>\n</code> so it's necessary
-to say C&lt;\n?$&gt; if that's what you mean.</p>
-
-<p><code>\n</code> now matches a logical (platform independent) newline, not just C&lt;\x0a&gt;.
-See TR18 section 1.6 for a list of logical newlines.</p>
-
-<p>The C&lt;\A&gt;, C&lt;\Z&gt;, and C&lt;\z&gt; metacharacters are gone.</p>
+treated as a separate string.</li>
+<li>A <code>$</code> no longer matches an optional preceding <code>\n</code> so it's necessary
+to say <code>\n?$</code> if that's what you mean.</li>
+<li>
+<code>\n</code> now matches a logical (platform independent) newline, not just <code>\x0a</code>.
+See TR18 section 1.6 for a list of logical newlines.</li>
+<li>The <code>\A</code>, <code>\Z</code>, and <code>\z</code> metacharacters are gone.</li>
+</ul>
 
 <h1>
 <a id="new-metacharacters" class="anchor" href="#new-metacharacters" aria-hidden="true"><span class="octicon octicon-link"></span></a>New metacharacters</h1>
 
-<p>Because C is default:</p>
+<ul>
+<li>Because <code>/x</code> is default:
 
-<p>An unquoted C&lt;#&gt; now always introduces a comment.  If followed
+<ul>
+<li>An unquoted <code>#</code> now always introduces a comment.  If followed
 by a backtick and an opening bracket character,
 it introduces an embedded comment that terminates with the closing
-bracket.  Otherwise the comment terminates at the newline.</p>
-
-<p>Whitespace is now always metasyntactic, i.e. used only for layout
-and not matched literally (but see the <code>:sigspace</code> modifier described above).</p>
-
-<p>C&lt;^^&gt; and <code>$$</code> match line beginnings and endings. (The <code>/m</code>
+bracket.  Otherwise the comment terminates at the newline.</li>
+<li>Whitespace is now always metasyntactic, i.e. used only for layout
+and not matched literally (but see the <code>:sigspace</code> modifier described above).</li>
+</ul>
+</li>
+<li>
+<code>^^</code> and <code>$$</code> match line beginnings and endings. (The <code>/m</code>
 modifier is gone.)  They are both zero-width assertions.  <code>$$</code>
 matches before any <code>\n</code> (logical newline), and also at the end of
-the string if the final character was <code>not</code> a <code>\n</code>.  C&lt;^^&gt; always
+the string if the final character was <em>not</em> a <code>\n</code>.  <code>^^</code> always
 matches the beginning of the string and after any <code>\n</code> that is not
-the final character in the string.</p>
-
-<p><code>.</code> matches an <code>anything</code>, while C&lt;\N&gt; matches an I. (The <code>/s</code> modifier is gone.)  In particular, C&lt;\N&gt; matches
-neither carriage return nor line feed.</p>
-
+the final character in the string.</li>
+<li>
+<code>.</code> matches an <em>anything</em>, while <code>\N</code> matches an <em>anything except
+what <code>\n</code> matches</em>. (The <code>/s</code> modifier is gone.)  In particular, <code>\N</code> matches
+neither carriage return nor line feed.</li>
+<li>
 <p>The new <code>&amp;</code> metacharacter separates conjunctive terms.  The patterns
 on either side must match with the same beginning and end point.
 Note: if you don't want your two terms to end at the same point,
@@ -797,8 +812,9 @@ is allowed into the construct as a whole.</p>
 tighter precedence.  Likewise <code>&amp;&amp;</code> has slightly tighter precedence
 than <code>||</code>.  As with the normal junctional and short-circuit operators,
 <code>&amp;</code> and <code>|</code> are both tighter than <code>&amp;&amp;</code> and <code>||</code>.</p>
-
-<p>The C&lt;<del>&gt; and C&lt;!</del>&gt; operators cause a submatch to be performed on
+</li>
+<li>
+<p>The <code>~~</code> and <code>!~~</code> operators cause a submatch to be performed on
 whatever was matched by the variable or atom on the left.  String
 anchors consider that submatch to be the entire string.  So, for
 instance, you can ask to match any identifier that does not contain
@@ -822,7 +838,7 @@ use extra brackets:</p>
 <pre><code>[ &lt;ident&gt; !~~ ^ 'moose' $ ]
 </code></pre>
 
-<p>The precedence of C&lt;<del>&gt; and C&lt;!</del>&gt; fits in between the junctional and
+<p>The precedence of <code>~~</code> and <code>!~~</code> fits in between the junctional and
 sequential versions of the logical operators just as it does in normal
 Perl expressions (see S03).  Hence</p>
 
@@ -843,8 +859,9 @@ Perl expressions (see S03).  Hence</p>
 
 <pre><code>[ &lt;ident&gt; !~~ 'moose' ] || 'squirrel'
 </code></pre>
-
-<p>The C&lt;~&gt; operator is a helper for matching nested subrules with a
+</li>
+<li>
+<p>The <code>~</code> operator is a helper for matching nested subrules with a
 specific terminator as the goal.  It is designed to be placed between an
 opening and closing bracket, like so:</p>
 
@@ -882,7 +899,7 @@ a closing construct even when there's no opening bracket:</p>
 indicator of the abstract goal of the parser at that point.  However,
 often this is not terribly informative, especially when rules are named
 according to an internal scheme that will not make sense to the user.
-The C&lt;:dba("doing business as")&gt; adverb may be used to set up a more informative name for
+The <code>:dba("doing business as")</code> adverb may be used to set up a more informative name for
 what the following code is trying to  parse:</p>
 
 <pre><code>token postfix:sym&lt;[ ]&gt; {
@@ -903,26 +920,30 @@ what the following code is trying to  parse:</p>
 
 <p>(The <code>:dba</code> adverb may also be used to give names to alternations
 and alternatives, which helps the lexer give better error messages.)</p>
+</li>
+</ul>
 
 <h1>
 <a id="bracket-rationalization" class="anchor" href="#bracket-rationalization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bracket rationalization</h1>
 
-<p><code>(...)</code> still delimits a capturing group. However the ordering of these
-groups is hierarchical rather than linear. See L.</p>
-
+<ul>
+<li>
+<code>(...)</code> still delimits a capturing group. However the ordering of these
+groups is hierarchical rather than linear. See <a href="#nested-subpattern-captures">"Nested subpattern captures"</a>.</li>
+<li>
 <p><code>[...]</code> is no longer a character class.
 It now delimits a non-capturing group.</p>
 
-<p>A character class is now specified using C&lt;&lt; &lt;[...]&gt; &gt;&gt;.
-See also L &gt;&gt;)&gt;.</p>
-
-<p><code>{...}</code> is no longer a repetition quantifier.
+<p>A character class is now specified using <code>&lt;[...]&gt;</code>.
+See also <a href="#extensible-metasyntax">"Extensible metasyntax (<code>&lt;...&gt;</code>)"</a>.</p>
+</li>
+<li><p><code>{...}</code> is no longer a repetition quantifier.
 It now delimits an embedded closure.  It is always considered
 procedural rather than declarative; it establishes a sequence point
 between what comes before and what comes after.  (To avoid this
-use the C&lt;&lt; &lt;?{...}&gt; &gt;&gt; assertion syntax instead.)  A closure
-within a regex establishes its own lexical scope.</p>
-
+use the <code>&lt;?{...}&gt;</code> assertion syntax instead.)  A closure
+within a regex establishes its own lexical scope.</p></li>
+<li>
 <p>You can call Perl code as part of a regex match by using a closure.
 Embedded code does not usually affect the match--it is only used
 for side-effects:</p>
@@ -932,8 +953,8 @@ for side-effects:</p>
  /
 </code></pre>
 
-<p>An B reduction using the <code>make</code> function generates the
-I object (I or <code>ast</code> for short)
+<p>An <strong>explicit</strong> reduction using the <code>make</code> function generates the
+<em>abstract syntax tree</em> object (<em>abstract object</em> or <em>ast</em> for short)
 for this match:</p>
 
 <pre><code>    / (\d) { make $0.sqrt } Remainder /;
@@ -950,21 +971,22 @@ may be extracted from the <code>Match</code> object by use of the <code>.made</c
 <code>make</code> is also available as a method on each match object.</p>
 
 <p>Within a closure, the instantaneous
-position within the search is denoted by the C&lt;$¢.pos&gt; method.
+position within the search is denoted by the <code>$?.pos</code> method.
 As with all string positions, you must not treat it
 as a number unless you are very careful about which units you are
 dealing with.</p>
 
 <p>The <code>Cursor</code> object can also return the original item that we are
-matching against; this is available from the C&lt;.orig&gt; method.</p>
+matching against; this is available from the <code>.orig</code> method.</p>
 
 <p>The closure is also guaranteed to start with a <code>$/</code> <code>Match</code> object
 representing the match so far.  However, if the closure does its own
 internal matching, its <code>$/</code> variable will be rebound to the result
-of <code>that</code> match until the end of the embedded closure.  (The match
-will actually continue with the current value of the C&lt;$¢&gt; object after
-the closure.  <code>$/</code> and C&lt;$¢&gt; just start out the same in your closure.)</p>
-
+of <em>that</em> match until the end of the embedded closure.  (The match
+will actually continue with the current value of the <code>$?</code> object after
+the closure.  <code>$/</code> and <code>$?</code> just start out the same in your closure.)</p>
+</li>
+<li>
 <p>It can affect the match if it calls <code>fail</code>:</p>
 
 <pre><code> / (\d+) { $0 &lt; 256 or fail } /
@@ -975,7 +997,8 @@ called at the canonical time even if the optimizer could prove that
 something after them can't match.  (Anything before is fair game,
 however.  In particular, a closure often serves as the terminator
 of a longest-token pattern.)</p>
-
+</li>
+<li>
 <p>The general repetition specifier is now <code>**</code> for greedy matching,
 with a corresponding <code>**?</code> for frugal matching.  (All such quantifier
 modifiers now go directly after the <code>**</code>.)  Space is allowed on either
@@ -1011,16 +1034,18 @@ count or a range:</p>
 <p>The closure form is always considered procedural, so the item it is
 modifying is never considered part of the longest token.</p>
 
-<p>For backwards compatibility with previous versions of Perl-6, if the token
+<p>For backwards compatibility with previous versions of Perl 6, if the token
 following ** is not a closure or literal integer, it is interpreted as +%
 with a warning:</p>
 
-<p>/ x ** y /                # same as / x+ % y /
-   / x ** $y /               # same as / x [$y x]* /</p>
+<pre><code>/ x ** y /                # same as / x+ % y /
+/ x ** $y /               # same as / x [$y x]* /
+</code></pre>
 
 <p>No check is made to see if $y contains an integer or range value.  This
 compatibility feature is not guaranteed to exist forever.</p>
-
+</li>
+<li>
 <p>Negative range values are allowed, but only when modifying a reversible
 pattern (such as <code>after</code> could match).  For example, to search the
 surrounding 200 characters as defined by 'dot', you could say:</p>
@@ -1035,10 +1060,11 @@ surrounding 200 characters as defined by 'dot', you could say:</p>
 
 <p>[Conjecture: A negative quantifier forces the construct to be
 considered procedural rather than declarational.]</p>
-
+</li>
+<li>
 <p>Any quantified atom may be modified by an additional constraint that
 specifies the separator to look for between repeats of the left side.
-This is indicated by use of a C&lt;%&gt; between the quantifier and
+This is indicated by use of a <code>%</code> between the quantifier and
 the separator.  The initial item is iterated only as long as the
 separator is seen between items:</p>
 
@@ -1051,17 +1077,17 @@ separator is seen between items:</p>
 <p>Any quantifier may be so modified:</p>
 
 <pre><code>&lt;a&gt;* % ','              # 0 or more comma-separated elements
-&lt;a&gt;+ % ','              # 1 or more
+&lt;a&gt;+ % ','              # 1 or more 
 &lt;a&gt;? % ','              # 0 or 1 (but ',' never used!?!)
-&lt;a&gt; ** 2..* % ','       # 2 or more
+&lt;a&gt; ** 2..* % ','       # 2 or more 
 </code></pre>
 
-<p>The C&lt;%&gt; modifier may only be used on a quantifier; any attempt
+<p>The <code>%</code> modifier may only be used on a quantifier; any attempt
 to use it on a bare term will result in a parse error (to minimize
 possible confusion with any hash notations we choose to support in
-Perl 6 regexes).</p>
+Perl 6 regexes).</p>
 
-<p>A successful match of a C&lt;%&gt; construct generally ends "in the middle" at the C&lt;%&gt;,
+<p>A successful match of a <code>%</code> construct generally ends "in the middle" at the <code>%</code>,
 that is, after the initial item but before the next separator.
 Therefore</p>
 
@@ -1088,7 +1114,7 @@ matches the null string.</p>
 <pre><code>'' ~~ / &lt;ident&gt;* % ',' /  # matches because of the *
 </code></pre>
 
-<p>If you wish to allow the match to end after either side, use C&lt;%%&gt; instead.
+<p>If you wish to allow the match to end after either side, use <code>%%</code> instead.
 Therefore</p>
 
 <pre><code>/ &lt;ident&gt;+ %% ',' /
@@ -1118,12 +1144,12 @@ the left progresses on each iteration:</p>
 <p>The separator never matches independently of the next item; if the
 separator matches but the next item fails, it backtracks all the way
 back through the separator.  Likewise, this matching of the separator
-does not count as "progress" under C&lt;:ratchet&gt; semantics unless the
+does not count as "progress" under <code>:ratchet</code> semantics unless the
 next item succeeds.</p>
 
 <p>When significant space is used under <code>:sigspace</code>,
 each matching element enables the immediately following whitespace
-to be considered significant.  Space after the C&lt;%&gt; does nothing.  If you write:</p>
+to be considered significant.  Space after the <code>%</code> does nothing.  If you write:</p>
 
 <pre><code>ms/ &lt;element&gt; +  %  ',' /
   #1        #2 #3 #4  #5
@@ -1135,7 +1161,7 @@ to be considered significant.  Space after the C&lt;%&gt; does nothing.  If you 
                 #2               #5      #3
 </code></pre>
 
-<p>Since #3 is redundant with #2 (because C&lt;+&gt; requires an element),
+<p>Since #3 is redundant with #2 (because <code>+</code> requires an element),
 it suffices to supply either #2 or #3:</p>
 
 <pre><code>ms/ &lt;element&gt;+ % ',' /    # ws after comma and at end
@@ -1172,40 +1198,41 @@ ms/ &lt;element&gt; +% ',' /    # ws after comma and any element
 <pre><code>/ &lt;element&gt;[','&lt;element&gt;]* /
 </code></pre>
 
-<p>Note that with a <code>*</code> instead of a C&lt;+&gt;, space #3 would not be
+<p>Note that with a <code>*</code> instead of a <code>+</code>, space #3 would not be
 redundant with #2, since if 0 elements are matched, the space
 associated with it (#2) is not matched.  In that case it makes sense
 to put space on both sides of the <code>*</code>:</p>
 
 <pre><code>ms/ &lt;element&gt; * % ',' /
 </code></pre>
-
-<p>C&lt;&lt; &lt;...&gt; &gt;&gt; are now extensible metasyntax delimiters or <code>assertions</code>
-(i.e. they replace Perl 5's crufty <code>(?...)</code> syntax).</p>
+</li>
+<li><p><code>&lt;...&gt;</code> are now extensible metasyntax delimiters or <em>assertions</em>
+(i.e. they replace Perl 5's crufty <code>(?...)</code> syntax).</p></li>
+</ul>
 
 <h1>
 <a id="variable-non-interpolation" class="anchor" href="#variable-non-interpolation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Variable (non-)interpolation</h1>
 
-<p>In Perl 6 regexes, variables don't interpolate.</p>
-
-<p>Instead they're passed <code>raw</code> to the regex engine, which can then decide
-how to handle them (more on that below).</p>
-
+<ul>
+<li>In Perl 6 regexes, variables don't interpolate.</li>
+<li>Instead they're passed <em>raw</em> to the regex engine, which can then decide
+how to handle them (more on that below).</li>
+<li>
 <p>The default way in which the engine handles a string scalar is to match it
-as a C&lt;&lt; "..." &gt;&gt; literal (i.e. it does not treat the interpolated string
-as a subpattern).  In other words, a Perl 6:</p>
+as a <code>"..."</code> literal (i.e. it does not treat the interpolated string
+as a subpattern).  In other words, a Perl 6:</p>
 
 <pre><code> / $var /
 </code></pre>
 
-<p>is like a Perl 5:</p>
+<p>is like a Perl 5:</p>
 
 <pre><code> / \Q$var\E /
 </code></pre>
 
-<p>To interpolate a <code>Regex</code> object, use C&lt;&lt; &lt;$var&gt; &gt;&gt; instead.</p>
+<p>To interpolate a <code>Regex</code> object, use <code>&lt;$var&gt;</code> instead.</p>
 
-<p>If C&lt;$var&gt; is undefined, a warning is issued and the match fails.</p>
+<p>If <code>$var</code> is undefined, a warning is issued and the match fails.</p>
 
 <p>When matching against a Stringy type that is not Str, the variable must
 be interpretable as a value of that Stringy type (or a related type
@@ -1243,28 +1270,29 @@ $&lt;x&gt; = &lt;.ident&gt;     # okay, persistent capture
 </code></pre>
 
 <p>Variables declared in capture aliases are lexically scoped to the
-rest of the regex.  You should not confuse this use of C&lt;=&gt; with
+rest of the regex.  You should not confuse this use of <code>=</code> with
 either ordinary assignment or ordinary binding.  You should read
-the C&lt;=&gt; more like the pseudoassignment of a declarator than like
-normal assignment.  It's more like the ordinary C&lt;:=&gt; operator,
+the <code>=</code> more like the pseudoassignment of a declarator than like
+normal assignment.  It's more like the ordinary <code>:=</code> operator,
 since at the level regexes work, strings are immutable, so captures
 are really just precomputed substr values.  Nevertheless, when you
 eventually use the values independently, the substr may be copied,
 and then it's more like it was an assignment originally.</p>
 
-<p>Capture variables of the form C&lt;&lt; $ &gt;&gt; may persist beyond
+<p>Capture variables of the form <code>$&lt;ident&gt;</code> may persist beyond
 the lexical scope; if the match succeeds they are remembered in the
 <code>Match</code> object's hash, with a key corresponding to the variable name's
 identifier.  Likewise bound numeric variables persist as <code>$0</code>, etc.</p>
 
 <p>You may capture to existing lexical variables; such variables may
 already be visible from an outer scope, or may be declared within
-the regex via a C&lt;:my&gt; declaration.</p>
+the regex via a <code>:my</code> declaration.</p>
 
 <pre><code>my $x; / $x = [...] /            # capture to outer lexical $x
 / :my $x; $x = [...] /           # capture to our own lexical $x
 </code></pre>
-
+</li>
+<li>
 <p>An interpolated array:</p>
 
 <pre><code> / @cmds /
@@ -1298,18 +1326,18 @@ you can put <code>||</code> before the first member of an alternation, hence</p>
 <p>Note the usage of $(...) to prevent the subscripts from being parsed as
 regex syntax rather than an actual subscript.</p>
 
-<p>Since C&lt;$x&gt; is interpolated as if you'd said C&lt;"$x"&gt;, if C&lt;$x&gt; contains
+<p>Since <code>$x</code> is interpolated as if you'd said <code>"$x"</code>, if <code>$x</code> contains
 a list, it is stringified first.  To get alternation you must use the
-C&lt;@$x&gt; or C&lt;@($x)&gt; form to indicate that you're intending the scalar
+<code>@$x</code> or <code>@($x)</code> form to indicate that you're intending the scalar
 variable to be treated as a list.</p>
 
 <p>An interpolated array using junctive semantics is declarative
-(participates in external longest token matching) only if it's
-known to be constant at the time the regex is compiled.</p>
+(participates in external longest token matching) only if it's 
+known to be constant at the time the regex is compiled.  </p>
 
 <p>As with a scalar variable, each element is matched as a literal.
-All such values pay attention to the current C&lt;:ignorecase&gt;
-and C&lt;:ignoremark&gt; settings.</p>
+All such values pay attention to the current <code>:ignorecase</code>
+and <code>:ignoremark</code> settings.</p>
 
 <p>When you get tired of writing:</p>
 
@@ -1323,12 +1351,13 @@ and C&lt;:ignoremark&gt; settings.</p>
 
 <p>as long as you're careful to put a space after the initial angle so that
 it won't be interpreted as a subrule.  With the space it is parsed
-like angle quotes in ordinary Perl 6 and treated as a literal array value.</p>
-
+like angle quotes in ordinary Perl 6 and treated as a literal array value.</p>
+</li>
+<li>
 <p>Alternatively, if you predeclare a proto regex, you can write multiple
 regexes for the same category, differentiated only by the symbol they
 match.  The symbol is specified as part of the "long name".  It may also
-be matched within the rule using C&lt;&lt;  &gt;&gt;, like this:</p>
+be matched within the rule using <code>&lt;sym&gt;</code>, like this:</p>
 
 <pre><code>proto token sigil {*}
 multi token sigil:sym&lt;$&gt;  { &lt;sym&gt; }
@@ -1344,7 +1373,7 @@ multi token sigil:sym&lt;::&gt; { &lt;sym&gt; }
 based on longest-token matching rather than signature matching.  The
 advantage of writing it this way is that it's easy to add additional
 rules to the same category in a derived grammar.  All of them will
-be matched in parallel when you try to match C&lt;&lt; // &gt;&gt;.</p>
+be matched in parallel when you try to match <code>/&lt;sigil&gt;/</code>.</p>
 
 <p>If there are formal parameters on multi regex methods, matching
 still proceeds via longest-token rules first.  If that results in a
@@ -1359,14 +1388,13 @@ the <code>*</code> into curlies:</p>
 <pre><code>proto token foo { &lt;prestuff&gt; {*} &lt;poststuff&gt; }
 </code></pre>
 
-<p>This works only in a proto.  See L for a discussion of the
+<p>This works only in a proto.  See <a href="https://metacpan.org/pod/S06">S06</a> for a discussion of the
 semantics of <code>{*}</code>.  (Unlike a proto sub, a proto regex
 automatically remembers the return values from <code>{*}</code> because
 they are carried along with the match cursor.)</p>
-
-<p>The use of a hash variable in patterns is reserved.</p>
-
-<p>Variable matches are considered declarative if and only if the variable
+</li>
+<li><p>The use of a hash variable in patterns is reserved.</p></li>
+<li>Variable matches are considered declarative if and only if the variable
 is known to represent a constant,  Otherwise they are procedural.
 Note that role parameters (if readonly) are considered constant
 declarations for this purpose despite the absence of an explicit
@@ -1374,20 +1402,23 @@ declarations for this purpose despite the absence of an explicit
 will presumably be replacing the parameter with a constant value when
 composed (if the value passed is a constant).  Macros instantiated
 with constants would also make those constants eligible for declarative
-treatment.</p>
+treatment.</li>
+</ul>
 
 <h1>
-<a id="extensible-metasyntax-c--" class="anchor" href="#extensible-metasyntax-c--" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extensible metasyntax (C&lt;&lt; &lt;...&gt; &gt;&gt;)</h1>
+<a id="extensible-metasyntax-" class="anchor" href="#extensible-metasyntax-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extensible metasyntax (<code>&lt;...&gt;</code>)</h1>
 
-<p>Both C&lt;&lt; &lt; &gt;&gt; and C&lt;&lt; &gt; &gt;&gt; are metacharacters, and are usually (but not
+<p>Both <code>&lt;</code> and <code>&gt;</code> are metacharacters, and are usually (but not
 always) used in matched pairs.  (Some combinations of metacharacters
 function as standalone tokens, and these may include angles.  These are
 described below.) Most assertions are considered declarative;
 procedural assertions will be marked as exceptions.</p>
 
-<p>For matched pairs, the first character after C&lt;&lt; &lt; &gt;&gt; determines the
+<p>For matched pairs, the first character after <code>&lt;</code> determines the
 nature of the assertion:</p>
 
+<ul>
+<li>
 <p>If the first character is whitespace, the angles are treated as an
 ordinary "quote words" array literal.</p>
 
@@ -1396,7 +1427,8 @@ ordinary "quote words" array literal.</p>
 
 <p>Note that the space before the ending &gt; is optional and therefore
 &lt; adam &amp; eve&gt; would be acceptable.</p>
-
+</li>
+<li>
 <p>A leading alphabetic character means it's a capturing grammatical
 assertion (i.e. a subrule or a named character class - see below):</p>
 
@@ -1411,7 +1443,7 @@ a left parenthesis, it really is a call to either a method or function:</p>
 <pre><code>&lt;foo('bar')&gt;
 </code></pre>
 
-<p>If the first character after the identifier is an C&lt;=&gt;, then the identifier
+<p>If the first character after the identifier is an <code>=</code>, then the identifier
 is taken as an alias for what follows.  In particular,</p>
 
 <pre><code>&lt;foo=bar&gt;
@@ -1422,7 +1454,7 @@ is taken as an alias for what follows.  In particular,</p>
 <pre><code>$&lt;foo&gt; = &lt;bar&gt;
 </code></pre>
 
-<p>Note that this aliasing does not modify the original C&lt;&lt;  &gt;&gt;
+<p>Note that this aliasing does not modify the original <code>&lt;bar&gt;</code>
 capture.  To rename an inherited method capture without using the
 original name, use the dot form described below on the capture you
 wish to suppress.  That is,</p>
@@ -1496,7 +1528,7 @@ instance.</p>
 dispatching directly to it as if it were function.  If there is no such
 lexical regex (or lexical method) in scope, the call is dispatched to the
 current grammar, assuming there is one. That is, if there is a
-C visible from the current lexical scope, then</p>
+<code>my regex foo</code> visible from the current lexical scope, then</p>
 
 <pre><code>&lt;foo(1,2,3)&gt;
 </code></pre>
@@ -1520,15 +1552,16 @@ in that case:</p>
 <pre><code>&lt;foo=.foo(1,2,3)&gt;
 </code></pre>
 
-<p>A call to C&lt;&lt;  &gt;&gt; will fail if there is neither any lexically
+<p>A call to <code>&lt;foo&gt;</code> will fail if there is neither any lexically
 scoped routine of that name it can call, nor any method of that name
 that be reached via method dispatch.  (The decision of which dispatcher
 to use is made at compile time, not at run time; the method call is not
 a fallback mechanism.)</p>
-
+</li>
+<li>
 <p>A leading <code>.</code> explicitly calls a method as a subrule; the fact
 that the initial character is not alphanumeric also causes the named
-assertion to not capture what it matches (see L. For
+assertion to not capture what it matches (see <a href="#subrule-captures">"Subrule captures"</a>. For
 example:</p>
 
 <pre><code> / &lt;ident&gt;  &lt;ws&gt;  /      # $/&lt;ident&gt; and $/&lt;ws&gt; both captured
@@ -1555,7 +1588,8 @@ is simply the method's invocant.  The method is expected to return
 a lazy list of new match state objects, or <code>Nil</code> if the match fails
 entirely.  Ratcheted routines will typically return a list containing only
 one match.</p>
-
+</li>
+<li>
 <p>Whereas a leading <code>.</code> unambiguously calls a method, a leading <code>&amp;</code>
 unambiguously calls a routine instead.  Such a regex routine must
 be declared (or imported) with <code>my</code> or <code>our</code> scoping to make its
@@ -1572,10 +1606,10 @@ state as a cursor object.  Hence,</p>
 
 <p>is sugar for something like:</p>
 
-<pre><code> &lt;.gather { take foo($¢,1,2,3) }&gt;
+<pre><code> &lt;.gather { take foo($?,1,2,3) }&gt;
 </code></pre>
 
-<p>where C&lt;$¢&gt; represents the current incoming match state, and the
+<p>where <code>$?</code> represents the current incoming match state, and the
 routine must return <code>Nil</code> for failure, or a lazy list of one or
 more match states (<code>Cursor</code>-derived objects) for successful matches.</p>
 
@@ -1589,14 +1623,15 @@ When you say:</p>
 
 <p>you're really declaring an anonymous method, something like:</p>
 
-<pre><code>my $internal = anon regex :: ($¢: ) { stuff }
+<pre><code>my $internal = anon regex :: ($?: ) { stuff }
 </code></pre>
 
 <p>and then passing that object off to someone else who will call it
 indirectly.  In this case, the method is installed neither into
 a class nor into a lexical scope, but as long as the value stays
 live somehow, it can still be called indirectly (see below).</p>
-
+</li>
+<li>
 <p>A leading <code>$</code> indicates an indirect subrule call.  The variable must
 contain either a <code>Regex</code> object (really an anonymous method--see
 above), or a string to be compiled as the regex.  The string is never
@@ -1613,7 +1648,8 @@ is captured by default.)  You may always capture it explicitly, of course:</p>
 
 <p>An indirect subrule is always considered procedural, and may not participate
 in longest-token matching.</p>
-
+</li>
+<li>
 <p>A leading <code>::</code> indicates a symbolic indirect subrule:</p>
 
 <pre><code> / &lt;::($somename)&gt; /
@@ -1625,16 +1661,17 @@ grammar and its ancestors.  If this search fails an attempt is made
 to dispatch via MMD, in which case it can find subrules defined as
 multis rather than methods.  This form is not captured by default.
 It is always considered procedural, not declarative.</p>
-
-<p>A leading C<a href="mailto:@">@</a> matches like a bare array except that each element is
+</li>
+<li>
+<p>A leading <code>@</code> matches like a bare array except that each element is
 treated as a subrule (string or <code>Regex</code> object) rather than as a literal.
 That is, a string is forced to be compiled as a subrule instead of being
 matched literally.  (There is no difference for a <code>Regex</code> object.)</p>
 
 <p>This assertion is not automatically captured.</p>
-
-<p>The use of a hash as an assertion is reserved.</p>
-
+</li>
+<li><p>The use of a hash as an assertion is reserved.</p></li>
+<li>
 <p>A leading <code>{</code> indicates code that produces a regex to be interpolated
 into the pattern at that point as a subrule:</p>
 
@@ -1643,8 +1680,8 @@ into the pattern at that point as a subrule:</p>
 
 <p>The closure is guaranteed to be run at the canonical time; it declares
 a sequence point, and is considered to be procedural.</p>
-
-<p>In any case of regex interpolation, if the value already happens to be
+</li>
+<li><p>In any case of regex interpolation, if the value already happens to be
 a <code>Regex</code> object, it is not recompiled.  If it is a string, the compiled
 form is cached with the string so that it is not recompiled next
 time you use it unless the string changes.  (Any external lexical
@@ -1652,9 +1689,9 @@ variable names must be rebound each time though.)  Subrules may not be
 interpolated with unbalanced bracketing.  An interpolated subrule
 keeps its own inner match results as a single item, so its parentheses never count toward the
 outer regexes groupings.  (In other words, parenthesis numbering is always
-lexically scoped.)</p>
-
-<p>A leading <code>?{</code> or C&lt;!{&gt; indicates a code assertion:</p>
+lexically scoped.)</p></li>
+<li>
+<p>A leading <code>?{</code> or <code>!{</code> indicates a code assertion:</p>
 
 <pre><code> / (\d**1..3) &lt;?{ $0 &lt; 256 }&gt; /
  / (\d**1..3) &lt;!{ $0 &lt; 256 }&gt; /
@@ -1675,9 +1712,10 @@ non-canonical closure that way:</p>
 </code></pre>
 
 <p>The <code>do</code> block is unlikely to run unless the string ends with "<code>bar</code>".</p>
-
+</li>
+<li>
 <p>A leading <code>[</code> indicates an enumerated character class.  Ranges
-in enumerated character classes are indicated with "<code>..</code>" rather than "C&lt;-&gt;".</p>
+in enumerated character classes are indicated with "<code>..</code>" rather than "<code>-</code>".</p>
 
 <pre><code> / &lt;[a..z_]&gt;* /
 </code></pre>
@@ -1698,8 +1736,9 @@ error to say</p>
 <pre><code>$rx = '&lt;[ z .. a ]&gt;';
 / &lt;$rx&gt; /;  # warns and never matches
 </code></pre>
-
-<p>A leading C&lt;-&gt; indicates a complemented character class:</p>
+</li>
+<li>
+<p>A leading <code>-</code> indicates a complemented character class:</p>
 
 <pre><code> / &lt;-[a..z_]&gt; &lt;-alpha&gt; /
  / &lt;- [a..z_]&gt; &lt;- alpha&gt; /  # whitespace allowed after -
@@ -1710,16 +1749,18 @@ error to say</p>
 <pre><code>/ &lt;![a..z_]&gt; . &lt;!alpha&gt; . /
 </code></pre>
 
-<p>Whitespace is ignored after the initial C&lt;-&gt;.</p>
-
-<p>A leading C&lt;+&gt; may also be supplied to indicate that the following
+<p>Whitespace is ignored after the initial <code>-</code>.</p>
+</li>
+<li>
+<p>A leading <code>+</code> may also be supplied to indicate that the following
 character class is to be matched in a positive sense.</p>
 
 <pre><code> / &lt;+[a..z_]&gt;* /
  / &lt;+[ a..z _ ]&gt;* /
  / &lt;+ [ a .. z _ ] &gt;* /      # whitespace allowed after +
 </code></pre>
-
+</li>
+<li>
 <p>Character classes can be combined (additively or subtractively) within
 a single set of angle brackets.  Whitespace is ignored. For example:</p>
 
@@ -1732,9 +1773,10 @@ a single set of angle brackets.  Whitespace is ignored. For example:</p>
 </code></pre>
 
 <p>However, in order to combine classes you must prefix a named
-character class with C&lt;+&gt; or C&lt;-&gt;.  Whitespace is required before
-any C&lt;-&gt; that would be misparsed as an identifier extender.</p>
-
+character class with <code>+</code> or <code>-</code>.  Whitespace is required before
+any <code>-</code> that would be misparsed as an identifier extender.</p>
+</li>
+<li>
 <p>Unicode properties are indicated by use of pair notation in place of a normal
 rule name:</p>
 
@@ -1758,34 +1800,37 @@ with a pattern as the argument:</p>
 
 <pre><code>&lt;:name(/^LATIN LETTER.*P$/)&gt;
 </code></pre>
-
+</li>
+<li>
 <p>Multiple of these terms may be combined with pluses and minuses:</p>
 
 <pre><code>&lt;+ :HexDigit - :Upper &gt;
 </code></pre>
 
 <p>Terms may also be combined using <code>&amp;</code> for set intersection, <code>|</code>
-for set union, and C&lt;^&gt; for symmetric set difference.  Parens may be
+for set union, and <code>^</code> for symmetric set difference.  Parens may be
 used for grouping.  (Square brackets always quote literal characters
 (including backslashed literal forms), and may not be nested, unlike
 the suggested notation in TR18 section 1.3.)  The precedence of
 the operators is the same as the correspondingly named operators in
-L, even though they have somewhat different
+<a href="https://metacpan.org/pod/S03#Operator-precedence">"Operator precedence" in S03</a>, even though they have somewhat different
 semantics.</p>
-
+</li>
+<li>
 <p>Extra long characters may be entered by quoting them and including them
 via intersection.  Any quoted characters will be treated as "longest tokens"
 when appropriate.  Here 'll' would be recognized in preference to 'l':</p>
 
-<pre><code>/ &lt;[ a..z ] | 'ñ' | 'ch' | 'll' | 'rr'&gt;
+<pre><code>/ &lt;[ a..z ] | '?' | 'ch' | 'll' | 'rr'&gt;
 </code></pre>
 
 <p>Note that a negated character class containing "long characters"
 always advances by a single character.</p>
-
-<p>When any character constructor such as <code>\c</code>, C&lt;\x&gt;, or C&lt;\o&gt; contains
+</li>
+<li>
+<p>When any character constructor such as <code>\c</code>, <code>\x</code>, or <code>\o</code> contains
 multiple values separated by commas, these are treated as "long characters".
-So you could add a C&lt;\c[13,10]&gt; to the list above to match CRLF as a long
+So you could add a <code>\c[13,10]</code> to the list above to match CRLF as a long
 character.</p>
 
 <p>A consequence of this is that the negated form advances by a single
@@ -1796,8 +1841,9 @@ match as a whole.  Hence, this matches:</p>
 </code></pre>
 
 <p>If you want it to mean \C13\C10 instead, then you can just write it that way.</p>
-
-<p>The special assertion C&lt;&lt; &lt;.&gt; &gt;&gt; matches any logical grapheme
+</li>
+<li>
+<p>The special assertion <code>&lt;.&gt;</code> matches any logical grapheme
 (including a Unicode combining character sequences):</p>
 
 <pre><code> / seekto = &lt;.&gt; /  # Maybe a combined char
@@ -1807,21 +1853,23 @@ match as a whole.  Hence, this matches:</p>
 
 <pre><code> / seekto = [:graphs .] /
 </code></pre>
-
-<p>A leading C&lt;!&gt; indicates a negated meaning (always a zero-width assertion):</p>
+</li>
+<li>
+<p>A leading <code>!</code> indicates a negated meaning (always a zero-width assertion):</p>
 
 <pre><code> / &lt;!before _ &gt; /    # We aren't before an _
 </code></pre>
 
-<p>Note that C&lt;&lt; &lt;!alpha&gt; &gt;&gt; is different from C&lt;&lt; &lt;-alpha&gt; &gt;&gt;.
-C&lt;&lt; /&lt;-alpha&gt;/ &gt;&gt; is a complemented character class equivalent to
-C&lt;&lt;&lt; /&lt;!before &gt; ./ &gt;&gt;&gt;, whereas C&lt;&lt; &lt;!alpha&gt; &gt;&gt; is a zero-width
-assertion equivalent to a C&lt;&lt;&lt; /&lt;!before &gt;/ &gt;&gt;&gt; assertion.</p>
+<p>Note that <code>&lt;!alpha&gt;</code> is different from <code>&lt;-alpha&gt;</code>.
+<code>/&lt;-alpha&gt;/</code> is a complemented character class equivalent to
+<code>/&lt;!before &lt;alpha&gt;&gt; ./</code>, whereas <code>&lt;!alpha&gt;</code> is a zero-width
+assertion equivalent to a <code>/&lt;!before &lt;alpha&gt;&gt;/</code> assertion.</p>
 
-<p>Note also that as a metacharacter C&lt;!&gt; doesn't change the parsing
-rules of whatever follows (unlike, say, C&lt;+&gt; or C&lt;-&gt;).</p>
-
-<p>A leading <code>?</code> indicates a positive zero-width assertion, and like C&lt;!&gt;
+<p>Note also that as a metacharacter <code>!</code> doesn't change the parsing
+rules of whatever follows (unlike, say, <code>+</code> or <code>-</code>).</p>
+</li>
+<li>
+<p>A leading <code>?</code> indicates a positive zero-width assertion, and like <code>!</code>
 merely reparses the rest of the assertion recursively as if the <code>?</code>
 were not there.  In addition to forcing zero-width, it also suppresses
 any named capture:</p>
@@ -1861,7 +1909,8 @@ can be achieved with:</p>
 
 <pre><code>/ .*? prestuff &lt;( mainpat )&gt; /
 </code></pre>
-
+</li>
+<li>
 <p>A leading <code>*</code> indicates that the following pattern allows a
 partial match.  It always succeeds after matching as many characters
 as possible.  (It is not zero-width unless 0 characters match.)
@@ -1918,7 +1967,7 @@ multi-character sequences can be recursively remapped:</p>
 </code></pre>
 
 <p>[Conjecture: depending on how fancy we get, we might (or might not)
-be able to autodetect ambiguities in C&lt;&lt; &lt;*<a href="https://github.com/abbrev" class="user-mention">@abbrev</a>&gt; &gt;&gt; and refuse to
+be able to autodetect ambiguities in <code>&lt;*@abbrev&gt;</code> and refuse to
 generate ambiguous abbreviations (although exact match of a shorter
 abbrev should always be allowed even if it's the prefix of a longer
 abbreviation).  If it is not possible, then the user will have to
@@ -1926,8 +1975,9 @@ check for ambiguities after the match. Note also that the array
 form is assuming the array doesn't change often.  If it does, the
 longest-token matcher has to be recalculated, which could get
 expensive.]</p>
-
-<p>A leading C&lt;~~&gt; indicates a recursive call back into some or all of
+</li>
+<li>
+<p>A leading <code>~~</code> indicates a recursive call back into some or all of
 the current rule.  An optional argument indicates which subpattern
 to re-use, and if provided must resolve to a single subpattern.
 If omitted, the entire pattern is called recursively:</p>
@@ -1968,22 +2018,27 @@ call to it does not.</p>
 </code></pre>
 
 <p>for free, which fails if the current rule would match again at this location.</p>
-
+</li>
+<li>
 <p>A leading <code>|</code> indicates some kind of a zero-width boundary. You can refer to
-backslash sequences with this syntax; C&lt;&lt; &lt;|h&gt; &gt;&gt; will match between a <code>\h</code> and
-a C&lt;\H&gt;, for instance. Some examples:</p>
+backslash sequences with this syntax; <code>&lt;|h&gt;</code> will match between a <code>\h</code> and
+a <code>\H</code>, for instance. Some examples:</p>
 
 <pre><code>&lt;|w&gt; word boundary
 &lt;|g&gt; grapheme boundary (always matches in grapheme mode)
 &lt;|c&gt; codepoint boundary (always matches in grapheme/codepoint mode)
 </code></pre>
+</li>
+</ul>
 
 <p>The following tokens include angles but are not required to balance:</p>
 
-<p>A C&lt;&lt; &lt;( &gt;&gt; token indicates the start of the match's overall capture, while the
-corresponding C&lt;&lt; )&gt; &gt;&gt; token indicates its endpoint.  When matched,
+<ul>
+<li>
+<p>A <code>&lt;(</code> token indicates the start of the match's overall capture, while the
+corresponding <code>)&gt;</code> token indicates its endpoint.  When matched,
 these behave as assertions that are always true, but have the side
-effect of setting the C&lt;.from&gt; and C&lt;.to&gt; attributes of the match
+effect of setting the <code>.from</code> and <code>.to</code> attributes of the match
 object.  That is:</p>
 
 <pre><code>/ foo &lt;( \d+ )&gt; bar /
@@ -1995,83 +2050,86 @@ object.  That is:</p>
 </code></pre>
 
 <p>except that the scan for "<code>foo</code>" can be done in the forward direction,
-while a lookbehind assertion would presumably scan for C&lt;\d+&gt; and then
-match "<code>foo</code>" backwards.  The use of C&lt;&lt; &lt;(...)&gt; &gt;&gt; affects only the
+while a lookbehind assertion would presumably scan for <code>\d+</code> and then
+match "<code>foo</code>" backwards.  The use of <code>&lt;(...)&gt;</code> affects only the
 positions of the beginning and ending of the match, and anything calculated
-based on those positions.  For instance, after the match above, C&lt;$()&gt; contains
-only the digits matched, and C&lt;$/.to&gt; is pointing to after the digits. Other
+based on those positions.  For instance, after the match above, <code>$()</code> contains
+only the digits matched, and <code>$/.to</code> is pointing to after the digits. Other
 captures (named or numbered) are unaffected and may be accessed through <code>$/</code>.</p>
 
 <p>When used directly within quantifiers (that is, within quantified
 square brackets), there is only one <code>Match</code> object to set
-C&lt;.from&gt;/C&lt;.to&gt; on, so the C&lt;&lt; &lt;( &gt;&gt; token always sets C&lt;.from&gt; to
-the leftmost matching position, while C&lt;&lt; )&gt; &gt;&gt; always sets C&lt;.to&gt;
+<code>.from</code>/<code>.to</code> on, so the <code>&lt;(</code> token always sets <code>.from</code> to
+the leftmost matching position, while <code>)&gt;</code> always sets <code>.to</code>
 to the rightmost position.  However, the situation is different for
 capturing parentheses.  When used within parentheses (whether or
 not the parens are quantified), the <code>Match</code> being generated by each
 dynamic capture serves as the target, so each such capturing group
-sets its own C&lt;.from&gt;/C&lt;.to&gt;.  Hence, if the group is quantified,
+sets its own <code>.from</code>/<code>.to</code>.  Hence, if the group is quantified,
 each capture sets its own boundaries independently.</p>
 
 <p>These tokens are considered declarative.</p>
-
-<p>A C&lt;«&gt; or C&lt;&lt;&lt; &lt;&lt; &gt;&gt;&gt; token indicates a left word boundary.  A C&lt;»&gt; or
-C&lt;&lt;&lt; &gt;&gt; &gt;&gt;&gt; token indicates a right word boundary.  (As separate tokens,
-these need not be balanced.)  Perl 5's <code>\b</code> is replaced by a C&lt;&lt; &lt;|w&gt; &gt;&gt;
-"word boundary" assertion, while C&lt;\B&gt; becomes C&lt;&lt; &lt;!|w&gt; &gt;&gt;.  (None of
-these are dependent on the definition of C&lt;&lt; &lt;.ws&gt; &gt;&gt;, but only on the <code>\w</code>
+</li>
+<li><p>A <code>?</code> or <code>&lt;&lt;</code> token indicates a left word boundary.  A <code>?</code> or
+<code>&gt;&gt;</code> token indicates a right word boundary.  (As separate tokens,
+these need not be balanced.)  Perl 5's <code>\b</code> is replaced by a <code>&lt;|w&gt;</code>
+"word boundary" assertion, while <code>\B</code> becomes <code>&lt;!|w&gt;</code>.  (None of
+these are dependent on the definition of <code>&lt;.ws&gt;</code>, but only on the <code>\w</code>
 definition of "word" characters.  Non-space mark characters are ignored in
-calculating word properties of the preceding character.  See TR18 1.4.)</p>
+calculating word properties of the preceding character.  See TR18 1.4.)</p></li>
+</ul>
 
-<p>=head2 Predefined Subrules</p>
+<h2>
+<a id="predefined-subrules" class="anchor" href="#predefined-subrules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Predefined Subrules</h2>
 
 <p>These are some of the predefined subrules for any grammar or regex:</p>
 
-<p>ident
-XX&lt;&lt;  &gt;&gt;</p>
+<ul>
+<li>
+<p>ident</p>
 
 <p>Match an identifier.</p>
-
-<p>upper
-XX&lt;&lt;  &gt;&gt;</p>
+</li>
+<li>
+<p>upper</p>
 
 <p>Match a single uppercase character.</p>
-
-<p>lower
-XX&lt;&lt;  &gt;&gt;</p>
+</li>
+<li>
+<p>lower</p>
 
 <p>Match a single lowercase character.</p>
-
-<p>alpha
-XX&lt;&lt;  &gt;&gt;</p>
+</li>
+<li>
+<p>alpha</p>
 
 <p>Match a single alphabetic character, or an underscore.</p>
 
 <p>To match Unicode alphabetic characters without the underscore, use
-C&lt;&lt; &lt;:alpha&gt; &gt;&gt;.</p>
-
-<p>digit
-XX&lt;&lt;  &gt;&gt;</p>
+<code>&lt;:alpha&gt;</code>.</p>
+</li>
+<li>
+<p>digit</p>
 
 <p>Match a single digit.</p>
-
-<p>xdigit
-XX&lt;&lt;  &gt;&gt;</p>
+</li>
+<li>
+<p>xdigit</p>
 
 <p>Match a single hexadecimal digit.</p>
-
-<p>print
-XX&lt;&lt;  &gt;&gt;</p>
+</li>
+<li>
+<p>print</p>
 
 <p>Match a single printable character.</p>
-
-<p>graph
-XX&lt;&lt;  &gt;&gt;</p>
+</li>
+<li>
+<p>graph</p>
 
 <p>Match a single "graphical" character.</p>
-
-<p>cntrl
-XX&lt;&lt;  &gt;&gt;</p>
+</li>
+<li>
+<p>cntrl</p>
 
 <p>Match a single "control" character (equivalent to the &lt;:Cc&gt; property). A control character is usually one that
 doesn't produce output as such but instead controls the terminal somehow: for
@@ -2079,95 +2137,107 @@ example newline and backspace are control characters. All characters with ord()
 less than 32 are usually classified as control characters (assuming ASCII, the
 ISO Latin character sets, and Unicode), as is the character with the ord() value
 of 127 (DEL).  The characters from 128 to 159 are also control characters.</p>
-
+</li>
+<li>
 <p>punct</p>
 
 <p>Match a single punctuation character (that is, any character from the
 Unicode General Category "Punctuation").</p>
-
+</li>
+<li>
 <p>alnum</p>
 
 <p>Match a single alphanumeric character. This is equivalent to &lt;+alpha +digit&gt; .</p>
-
+</li>
+<li>
 <p>wb</p>
 
 <p>Returns a zero-width match that is true at word boundaries.  A word
 boundary is a spot with a "\w" on one side and a "\W" on the other
 side (in either order), counting the beginning and end of the string
 as matching "\W".</p>
-
+</li>
+<li>
 <p>ww</p>
 
 <p>Matches between two word characters (zero-width match).</p>
-
+</li>
+<li>
 <p>ws</p>
 
 <p>Matches required whitespace between two word characters, optional
-whitespace otherwise.  This is roughly equivalent to  C&lt;&lt; &lt;!ww&gt; \s* &gt;&gt;
+whitespace otherwise.  This is roughly equivalent to  <code>&lt;!ww&gt; \s*</code>
 (<code>ws</code> isn't required to use the <code>ww</code> subrule).</p>
-
+</li>
+<li>
 <p>space</p>
 
-<p>Match a single whitespace character (same as C&lt; \s &gt; ).</p>
-
+<p>Match a single whitespace character (same as <code>\s</code> ).</p>
+</li>
+<li>
 <p>blank</p>
 
 <p>Match a single "blank" character -- in most locales, this corresponds
 to space and tab.</p>
-
+</li>
+<li>
 <p>before <code>pattern</code></p>
 
 <p>Perform lookahead -- i.e., check if we're at a position where
 <code>pattern</code> matches.  Returns a zero-width <code>Match</code> object on
 success.</p>
-
+</li>
+<li>
 <p>after <code>pattern</code></p>
 
 <p>Perform lookbehind -- i.e., check if the string before the
 current position matches  (anchored at the end).
 Returns a zero-width <code>Match</code> object on success.</p>
-
+</li>
+<li>
 <p>&lt;?&gt;</p>
 
 <p>Match a null string, viz., always returns true</p>
-
+</li>
+<li>
 <p>&lt;!&gt;</p>
 
 <p>Inverse of &lt;?&gt;, viz., always returns false.</p>
+</li>
+</ul>
 
 <h1>
 <a id="backslash-reform" class="anchor" href="#backslash-reform" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backslash reform</h1>
 
-<p>Many <code>\p</code> and C&lt;\P&gt; properties become intrinsic grammar rules such as (C&lt;&lt;
- &gt;&gt; and C&lt;&lt; &lt;-alpha&gt; &gt;&gt;).  They may be combined using the above-mentioned
-character class notation: C&lt;&lt; &lt;[-]+alpha+digit&gt; &gt;&gt;.  Regardless of the
+<ul>
+<li>Many <code>\p</code> and <code>\P</code> properties become intrinsic grammar rules such as (<code>&lt;alpha&gt;</code> and <code>&lt;-alpha&gt;</code>).  They may be combined using the above-mentioned
+character class notation: <code>&lt;[-]+alpha+digit&gt;</code>.  Regardless of the
 higher-level character class names, all low-level Unicode properties are always
 available with a prefix of colon, that is, in pair notation within the angle
-brackets.  Hence, C&lt;&lt; &lt;+:Lu+:Lt&gt; &gt;&gt; is equivalent to C&lt;&lt; &lt;+upper+title&gt; &gt;&gt;.</p>
-
-<p>The C&lt;\L...\E&gt;, C&lt;\U...\E&gt;, and C&lt;\Q...\E&gt; sequences are gone.  The
+brackets.  Hence, <code>&lt;+:Lu+:Lt&gt;</code> is equivalent to <code>&lt;+upper+title&gt;</code>.</li>
+<li>The <code>\L...\E</code>, <code>\U...\E</code>, and <code>\Q...\E</code> sequences are gone.  The
 single-character case modifiers <code>\l</code> and <code>\u</code> are also gone.  In the
-rare cases that need them you can use C&lt;&lt; &lt;{ lc $regex }&gt; &gt;&gt;,
-C&lt;&lt; &lt;{tc $word}&gt; &gt;&gt;, etc.</p>
-
-<p>As mentioned above, the <code>\b</code> and C&lt;\B&gt; word boundary assertions are gone,
-and are replaced with C&lt;&lt; &lt;|w&gt; &gt;&gt; (or ) and C&lt;&lt; &lt;!|w&gt; &gt;&gt; (or &lt;!wb&gt;)
-zero-width assertions.</p>
-
-<p>The C&lt;\G&gt; sequence is gone.  Use <code>:p</code> instead.  (Note, however,
+rare cases that need them you can use <code>&lt;{ lc $regex }&gt;</code>,
+<code>&lt;{tc $word}&gt;</code>, etc.<br>
+</li>
+<li>As mentioned above, the <code>\b</code> and <code>\B</code> word boundary assertions are gone,
+and are replaced with <code>&lt;|w&gt;</code> (or ) and <code>&lt;!|w&gt;</code> (or &lt;!wb&gt;)
+zero-width assertions.</li>
+<li>The <code>\G</code> sequence is gone.  Use <code>:p</code> instead.  (Note, however,
 that it makes no sense to use <code>:p</code> within a pattern, since every
 internal pattern is implicitly anchored to the current position.)
-See the <code>at</code> assertion below.</p>
-
-<p>Backreferences (e.g. <code>\1</code>, <code>\2</code>, etc.) are gone; <code>$0</code>, C&lt;$1&gt;, etc. can be
+See the <code>at</code> assertion below.</li>
+<li>
+<p>Backreferences (e.g. <code>\1</code>, <code>\2</code>, etc.) are gone; <code>$0</code>, <code>$1</code>, etc. can be
 used instead, because variables are no longer interpolated.</p>
 
 <p>Numeric variables are assumed to change every time and therefore are
 considered procedural, unlike normal variables.</p>
-
-<p>New backslash sequences, <code>\h</code> and C&lt;\v&gt;, match horizontal and vertical
+</li>
+<li>
+<p>New backslash sequences, <code>\h</code> and <code>\v</code>, match horizontal and vertical
 whitespace respectively, including Unicode.  Horizontal whitespace is defined
-as anything matching <code>\s</code> that doesn't also match C&lt;\v&gt;.  Vertical whitespace is
+as anything matching <code>\s</code> that doesn't also match <code>\v</code>.  Vertical whitespace is
 defined as any of:</p>
 
 <pre><code>U+000A  LINE FEED (LF)
@@ -2181,58 +2251,63 @@ U+2029  PARAGRAPH SEPARATOR
 
 <p>Note that U+000D CARRIAGE RETURN (CR) is considered vertical whitespace despite
 the fact that it only moves the "carriage" horizontally.</p>
+</li>
+<li><p><code>\s</code> now matches any Unicode whitespace character.</p></li>
+<li>The new backslash sequence <code>\N</code> matches anything except a logical
+newline; it is the negation of <code>\n</code>.</li>
+<li>Other new capital backslash sequences are also the negations
+of their lowercase counterparts:
 
-<p><code>\s</code> now matches any Unicode whitespace character.</p>
-
-<p>The new backslash sequence C&lt;\N&gt; matches anything except a logical
-newline; it is the negation of <code>\n</code>.</p>
-
-<p>Other new capital backslash sequences are also the negations
-of their lowercase counterparts:</p>
-
-<p>C&lt;\H&gt; matches anything but horizontal whitespace.</p>
-
-<p>C&lt;\V&gt; matches anything but vertical whitespace.</p>
-
-<p>C&lt;\T&gt; matches anything but a tab.</p>
-
-<p>C&lt;\R&gt; matches anything but a return.</p>
-
-<p>C&lt;\F&gt; matches anything but a formfeed.</p>
-
-<p>C&lt;\E&gt; matches anything but an escape.</p>
-
-<p>C&lt;\X...&gt; matches anything but the specified character (specified in
-hexadecimal).</p>
-
-<p>Backslash escapes for literal characters in ordinary strings are allowed in
-regexes (<code>\a</code>, C&lt;\x&gt;, etc.).  However, the exception to this rule is <code>\b</code>,
+<ul>
+<li>
+<code>\H</code> matches anything but horizontal whitespace.</li>
+<li>
+<code>\V</code> matches anything but vertical whitespace.</li>
+<li>
+<code>\T</code> matches anything but a tab.</li>
+<li>
+<code>\R</code> matches anything but a return.</li>
+<li>
+<code>\F</code> matches anything but a formfeed.</li>
+<li>
+<code>\E</code> matches anything but an escape.</li>
+<li>
+<code>\X...</code> matches anything but the specified character (specified in
+hexadecimal).</li>
+<li>Backslash escapes for literal characters in ordinary strings are allowed in
+regexes (<code>\a</code>, <code>\x</code>, etc.).  However, the exception to this rule is <code>\b</code>,
 which is disallowed in order to avoid conflict with its former use as a word
-boundary assertion.  To match a literal backspace, use <code>\c8</code>, C&lt;\x8&gt;, or a
-double-quoted <code>\b</code>.</p>
+boundary assertion.  To match a literal backspace, use <code>\c8</code>, <code>\x8</code>, or a
+double-quoted <code>\b</code>.</li>
+</ul>
+</li>
+</ul>
 
-<p>=head2 Character class shortcuts</p>
+<h2>
+<a id="character-class-shortcuts" class="anchor" href="#character-class-shortcuts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Character class shortcuts</h2>
 
 <p>For historical and convenience reasons, the following character classes are
 available as backslash sequences:</p>
 
-<p>\d          A digit
-   \D      &lt;-digit&gt;   A nondigit
-   \w          A word character
-   \W      &lt;-alnum&gt;   A non-word character
-   \s             A whitespace character
-   \S      &lt;-sp&gt;      A non-whitespace character
-   \h                 A horizontal whitespace
-   \H                 A non-horizontal whitespace
-   \v                 A vertical whitespace
-   \V                 A non-vertical whitespace</p>
+<pre><code>\d      &lt;digit&gt;    A digit
+\D      &lt;-digit&gt;   A nondigit
+\w      &lt;alnum&gt;    A word character
+\W      &lt;-alnum&gt;   A non-word character
+\s      &lt;sp&gt;       A whitespace character
+\S      &lt;-sp&gt;      A non-whitespace character
+\h                 A horizontal whitespace
+\H                 A non-horizontal whitespace
+\v                 A vertical whitespace
+\V                 A non-vertical whitespace
+</code></pre>
 
 <h1>
 <a id="regexes-constitute-a-first-class-language-rather-than-just-being-strings" class="anchor" href="#regexes-constitute-a-first-class-language-rather-than-just-being-strings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Regexes constitute a first-class language, rather than just being strings</h1>
 
-<p>The Perl 5 C regex constructor is gone.</p>
-
-<p>The Perl 6 equivalents are:</p>
+<ul>
+<li>The Perl 5 <code>qr/pattern/</code> regex constructor is gone.</li>
+<li>
+<p>The Perl 6 equivalents are:</p>
 
 <pre><code> regex { pattern }    # always takes {...} as delimiters
  rx    / pattern /    # can take (almost) any chars as delimiters
@@ -2247,12 +2322,13 @@ but only if you interpose whitespace:</p>
  rx( 1,2,3 )         # tries to call rx function
 </code></pre>
 
-<p>(This is true for all quotelike constructs in Perl 6.)</p>
+<p>(This is true for all quotelike constructs in Perl 6.)</p>
 
 <p>The <code>rx</code> form may be used directly as a pattern anywhere a normal <code>//</code> match can.
 The <code>regex</code> form is really a method definition, and must be used in such a way that
 the grammar class it is to be used in is apparent.</p>
-
+</li>
+<li>
 <p>If either form needs modifiers, they go before the opening delimiter:</p>
 
 <pre><code> $regex = regex :s:i { my name is (.*) };
@@ -2262,50 +2338,52 @@ the grammar class it is to be used in is apparent.</p>
 <p>Space is necessary after the final modifier if you use any
 bracketing character for the delimiter.  (Otherwise it would be taken as
 an argument to the modifier.)</p>
-
+</li>
+<li>
 <p>You may not use colons for the delimiter.  Space is allowed between
 modifiers:</p>
 
 <pre><code> $regex = rx :s :i / my name is (.*) /;
 </code></pre>
-
-<p>The name of the constructor was changed from <code>qr</code> because it's no
-longer an interpolating quote-like operator.  <code>rx</code> is short for <code>regex</code>,
-(not to be confused with regular expressions, except when they are).</p>
-
-<p>As the syntax indicates, it is now more closely analogous to a C<sub>
-constructor.  In fact, that analogy runs <code>very</code> deep in Perl 6.</sub></p>
-
-<p>Just as a raw <code>{...}</code> is now always a closure (which may still
+</li>
+<li><p>The name of the constructor was changed from <code>qr</code> because it's no
+longer an interpolating quote-like operator.  <code>rx</code> is short for <em>regex</em>,
+(not to be confused with regular expressions, except when they are).</p></li>
+<li>As the syntax indicates, it is now more closely analogous to a <code>sub {...}</code>
+constructor.  In fact, that analogy runs <em>very</em> deep in Perl 6.</li>
+<li>Just as a raw <code>{...}</code> is now always a closure (which may still
 execute immediately in certain contexts and be passed as an object
 in others), so too a raw <code>/.../</code> is now always a <code>Regex</code> object (which
 may still match immediately in certain contexts and be passed as an
-object in others).</p>
-
+object in others).</li>
+<li>
 <p>Specifically, a <code>/.../</code> matches immediately in a value context (sink,
 Boolean, string, or numeric), or when it is an explicit argument of
-a C&lt;~~&gt;.  Otherwise it's a <code>Regex</code> constructor identical to the explicit
+a <code>~~</code>.  Otherwise it's a <code>Regex</code> constructor identical to the explicit
 <code>regex</code> form.  So this:</p>
 
 <pre><code> $var = /pattern/;
 </code></pre>
 
-<p>no longer does the match and sets C&lt;$var&gt; to the result.
-Instead it assigns a <code>Regex</code> object to C&lt;$var&gt;.</p>
-
-<p>The two cases can always be distinguished using <code>m{...}</code> or C:</p>
+<p>no longer does the match and sets <code>$var</code> to the result.
+Instead it assigns a <code>Regex</code> object to <code>$var</code>.</p>
+</li>
+<li>
+<p>The two cases can always be distinguished using <code>m{...}</code> or <code>rx{...}</code>:</p>
 
 <pre><code> $match = m{pattern};    # Match regex immediately, assign result
  $regex = rx{pattern};   # Assign regex expression itself
 </code></pre>
-
+</li>
+<li>
 <p>Note that this means that former magically lazy usages like:</p>
 
 <pre><code> @list = split /pattern/, $str;
 </code></pre>
 
 <p>are now just consequences of the normal semantics.</p>
-
+</li>
+<li>
 <p>It's now also possible to set up a user-defined subroutine that acts
 like <code>grep</code>:</p>
 
@@ -2323,7 +2401,8 @@ like <code>grep</code>:</p>
 so passing <code>{...}</code> or <code>/.../</code> produces a <code>Code</code> or <code>Regex</code> object,
 which the switch statement then selects upon.  (Normal <code>grep</code> just
 lets a smartmatch operator do all the work.)</p>
-
+</li>
+<li>
 <p>Just as <code>rx</code> has variants, so does the <code>regex</code> declarator.
 In particular, there are two special variants for use in grammars:
 <code>token</code> and <code>rule</code>.</p>
@@ -2339,13 +2418,13 @@ it has scanned so far.  The above is equivalent to</p>
 <pre><code>regex ident { [ &lt;alpha&gt;: | \-: ]: \w*: }
 </code></pre>
 
-<p>but rather easier to read.  The bare <code>*</code>, C&lt;+&gt;, and <code>?</code> quantifiers
+<p>but rather easier to read.  The bare <code>*</code>, <code>+</code>, and <code>?</code> quantifiers
 never backtrack in a <code>token</code>.
 In normal regexes, use
-<code>*:</code>, C&lt;+:&gt;, or <code>?:</code> to prevent any backtracking into the quantifier.
-If you want to explicitly backtrack, append either a <code>?</code> or a C&lt;!&gt;
+<code>*:</code>, <code>+:</code>, or <code>?:</code> to prevent any backtracking into the quantifier.
+If you want to explicitly backtrack, append either a <code>?</code> or a <code>!</code>
 to the quantifier.   The <code>?</code> forces frugal matching as usual,
-while the C&lt;!&gt; forces greedy matching.  The <code>token</code> declarator is
+while the <code>!</code> forces greedy matching.  The <code>token</code> declarator is
 really just short for</p>
 
 <pre><code>regex :ratchet { ... }
@@ -2358,20 +2437,23 @@ A <code>rule</code> is really short for:</p>
 
 <pre><code>regex :ratchet :sigspace { ... }
 </code></pre>
-
-<p>The Perl 5 <code>?...?</code> syntax (I) was rarely used and can be
+</li>
+<li>
+<p>The Perl 5 <code>?...?</code> syntax (<em>succeed once</em>) was rarely used and can be
 now emulated more cleanly with a state variable:</p>
 
 <pre><code>$result = do { state $x ||= m/ pattern /; }    # only matches first time
 </code></pre>
 
-<p>To reset the pattern, simply say C&lt;$x = 0&gt;.  Though if you want C&lt;$x&gt; visible
+<p>To reset the pattern, simply say <code>$x = 0</code>.  Though if you want <code>$x</code> visible
 you'd have to avoid using a block:</p>
 
 <pre><code>$result = state $x ||= m/ pattern /;
 ...
 $x = 0;
 </code></pre>
+</li>
+</ul>
 
 <h1>
 <a id="backtracking-control" class="anchor" href="#backtracking-control" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backtracking control</h1>
@@ -2379,43 +2461,43 @@ $x = 0;
 <p>Within those portions of a pattern that are considered procedural rather
 than declarative, you may control the backtracking behavior.</p>
 
-<p>By default, backtracking is greedy in <code>rx</code>, <code>m</code>, <code>s</code>, and the like.
+<ul>
+<li>By default, backtracking is greedy in <code>rx</code>, <code>m</code>, <code>s</code>, and the like.
 It's also greedy in ordinary <code>regex</code> declarations.  In <code>rule</code>
-and <code>token</code> declarations, backtracking must be explicit.</p>
-
-<p>To force the preceding atom to do frugal backtracking (also sometimes
+and <code>token</code> declarations, backtracking must be explicit.</li>
+<li>To force the preceding atom to do frugal backtracking (also sometimes
 known as "eager matching" or "minimal matching"),
 append a <code>:?</code> or <code>?</code> to the atom.  If the preceding token is
 a quantifier, the <code>:</code> may be omitted, so <code>*?</code> works just as
-in Perl 5.</p>
-
-<p>To force the preceding atom to do greedy backtracking in a
-spot that would default otherwise, append a C&lt;:!&gt; to the atom.
+in Perl 5.</li>
+<li>To force the preceding atom to do greedy backtracking in a
+spot that would default otherwise, append a <code>:!</code> to the atom.
 If the preceding token is a quantifier, the <code>:</code> may be omitted.
-(Perl 5 has no corresponding construct because backtracking always
-defaults to greedy in Perl 5.)</p>
-
+(Perl 5 has no corresponding construct because backtracking always
+defaults to greedy in Perl 5.)</li>
+<li>
 <p>To force the preceding atom to do no backtracking, use a single <code>:</code>
-without a subsequent <code>?</code> or C&lt;!&gt;.  Backtracking over a single colon
+without a subsequent <code>?</code> or <code>!</code>.  Backtracking over a single colon
 causes the regex engine not to retry the preceding atom:</p>
 
 <pre><code> ms/ \( &lt;expr&gt; [ , &lt;expr&gt; ]*: \) /
 </code></pre>
 
-<p>(i.e. there's no point trying fewer C&lt;&lt;  &gt;&gt; matches, if there's
+<p>(i.e. there's no point trying fewer <code>&lt;expr&gt;</code> matches, if there's
 no closing parenthesis on the horizon)</p>
 
-<p>When modifying a quantifier, a C&lt;+&gt; may be used instead of a <code>:</code>, in
-which case the quantifier is often known as a <code>possessive</code> quantifier.</p>
+<p>When modifying a quantifier, a <code>+</code> may be used instead of a <code>:</code>, in
+which case the quantifier is often known as a <em>possessive</em> quantifier.</p>
 
 <pre><code> ms/ \( &lt;expr&gt; [ , &lt;expr&gt; ]*+ \) /  # same thing
 </code></pre>
 
 <p>To force all the atoms in an expression not to backtrack by default,
-use C&lt;:ratchet&gt; or <code>rule</code> or <code>token</code>.</p>
-
+use <code>:ratchet</code> or <code>rule</code> or <code>token</code>.</p>
+</li>
+<li>
 <p>Evaluating a double colon throws away all saved choice points in the current
-L alternation.</p>
+<a href="#longest-token-matching">LTM</a> alternation.</p>
 
 <pre><code> ms/ [ if :: &lt;expr&gt; &lt;block&gt;
      | for :: &lt;list&gt; &lt;block&gt;
@@ -2434,8 +2516,9 @@ for determinacy.</p>
 <p><code>::</code> does nothing if there is no current LTM alternation. "Current"
 is defined dynamically, not lexically.  A <code>::</code> in a subrule will affect
 the enclosing alternation.</p>
-
-<p>Evaluating a C&lt;&lt; ::&gt; &gt;&gt; throws away all saved choice points in the current
+</li>
+<li>
+<p>Evaluating a <code>::&gt;</code> throws away all saved choice points in the current
 innermost temporal alternation.  It thus acts as a "then".</p>
 
 <pre><code>ms/ [
@@ -2448,15 +2531,16 @@ innermost temporal alternation.  It thus acts as a "then".</p>
 
 <p>Note that you can still back into the "then" part of such
 an alternation, so you may also need to put <code>:</code> after it if you
-also want to disable that.  If an explicit or implicit C&lt;:ratchet&gt;
+also want to disable that.  If an explicit or implicit <code>:ratchet</code>
 has disabled backtracking by supplying an implicit <code>:</code>, you need to
-put an explicit C&lt;!&gt; after the alternation to enable backing into,
-say, the C&lt;&lt;  &gt;&gt; rule above.</p>
+put an explicit <code>!</code> after the alternation to enable backing into,
+say, the <code>&lt;foo&gt;</code> rule above.</p>
 
-<p>C&lt;&lt; ::&gt; &gt;&gt; does nothing if there is no current temporal alternation.
-"Current" is defined dynamically, not lexically.  A C&lt;&lt; ::&gt; &gt;&gt; in a
+<p><code>::&gt;</code> does nothing if there is no current temporal alternation.
+"Current" is defined dynamically, not lexically.  A <code>::&gt;</code> in a
 subrule will affect the enclosing alternation.</p>
-
+</li>
+<li>
 <p>Evaluating a triple colon throws away all saved choice points since
 the current regex was entered.  Backtracking to (or past) this point
 will fail the rule outright (no matter where in the regex it occurs):</p>
@@ -2470,8 +2554,9 @@ will fail the rule outright (no matter where in the regex it occurs):</p>
 </code></pre>
 
 <p>(i.e. using an unquoted reserved word as an identifier is not permitted)</p>
-
-<p>Evaluating a C&lt;&lt;  &gt;&gt; assertion throws away all saved choice
+</li>
+<li>
+<p>Evaluating a <code>&lt;commit&gt;</code> assertion throws away all saved choice
 points since the start of the entire match.  Backtracking to (or past)
 this point will fail the entire match, no matter how many subrules
 down it happens:</p>
@@ -2483,36 +2568,39 @@ down it happens:</p>
 </code></pre>
 
 <p>(i.e. using a reserved word as a subroutine name is instantly fatal
-to the <code>surrounding</code> match as well)</p>
+to the <em>surrounding</em> match as well)</p>
 
 <p>If commit is given an argument, it's the name of a calling rule that
 should be committed:</p>
 
 <pre><code>&lt;commit('infix')&gt;
 </code></pre>
-
-<p>A C&lt;&lt;  &gt;&gt; assertion always matches successfully, and has the
+</li>
+<li>
+<p>A <code>&lt;cut&gt;</code> assertion always matches successfully, and has the
 side effect of logically deleting the parts of the string already
 matched.  Whether this actually frees up the memory immediately may
 depend on various interactions among your backreferences, the string
 implementation, and the garbage collector.  In any case, the string
 will report that it has been chopped off on the front.  It's illegal
-to use C&lt;&lt;  &gt;&gt; on a string that you do not have write access to.</p>
+to use <code>&lt;cut&gt;</code> on a string that you do not have write access to.</p>
 
-<p>Attempting to backtrack past a C&lt;&lt;  &gt;&gt; causes the complete
-match to fail (like backtracking past a C&lt;&lt;  &gt;&gt;). This is
+<p>Attempting to backtrack past a <code>&lt;cut&gt;</code> causes the complete
+match to fail (like backtracking past a <code>&lt;commit&gt;</code>). This is
 because there's now no preceding text to backtrack into.  This is
 useful for throwing away successfully processed input when matching
 from an input stream or an iterator of arbitrary length.</p>
+</li>
+</ul>
 
 <h1>
 <a id="regex-routines-named-and-anonymous" class="anchor" href="#regex-routines-named-and-anonymous" aria-hidden="true"><span class="octicon octicon-link"></span></a>Regex Routines, Named and Anonymous</h1>
 
-<p>The analogy between <code>sub</code> and <code>regex</code> extends much further.</p>
-
-<p>Just as you can have anonymous subs and named subs...</p>
-
-<p>...so too you can have anonymous regexes and <code>named</code> regexes (and tokens,
+<ul>
+<li>The analogy between <code>sub</code> and <code>regex</code> extends much further.</li>
+<li>Just as you can have anonymous subs and named subs...</li>
+<li>
+<p>...so too you can have anonymous regexes and <em>named</em> regexes (and tokens,
 and rules):</p>
 
 <pre><code> token ident { [&lt;alpha&gt;|\-] \w* }
@@ -2521,7 +2609,8 @@ and rules):</p>
 
  @ids = grep /&lt;ident&gt;/, @strings;
 </code></pre>
-
+</li>
+<li>
 <p>As the above example indicates, it's possible to refer to named regexes,
 such as:</p>
 
@@ -2562,22 +2651,25 @@ $string ~~ m/^ &lt;.ws&gt; \d+: &lt;.ws&gt; $/;
 do implicit <code>.*?</code>-like scanning, while the <code>m//</code> and <code>s///</code>
 quotelike forms do such scanning in the absence of explicit anchoring.</p>
 
-<p>The C and <code>//</code> forms can go either way: they scan when used
+<p>The <code>rx//</code> and <code>//</code> forms can go either way: they scan when used
 directly within a smartmatch or boolean context, but when called
 indirectly as a subrule they do not scan.  That is, the object returned
-by C behaves like <code>m//</code> when used directly, but like <code>regex</code>
+by <code>rx//</code> behaves like <code>m//</code> when used directly, but like <code>regex</code>
 <code>{}</code> when used as a subrule:</p>
 
 <pre><code>$pattern = rx/foo/;
 $string ~~ $pattern;                  # equivalent to m/foo/;
 $string ~~ /'[' &lt;$pattern&gt; ']'/       # equivalent to /'[foo]'/
 </code></pre>
+</li>
+</ul>
 
 <h1>
 <a id="nothing-is-illegal" class="anchor" href="#nothing-is-illegal" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nothing is illegal</h1>
 
-<p>The empty pattern is now illegal.</p>
-
+<ul>
+<li>The empty pattern is now illegal.</li>
+<li>
 <p>To match the zero-width string, you must use some explicit
 representation of the null match:</p>
 
@@ -2594,7 +2686,8 @@ representation of the null match:</p>
 
 <pre><code> split '', $string
 </code></pre>
-
+</li>
+<li>
 <p>Likewise, to match a empty alternative, use something like:</p>
 
 <pre><code> /a|b|c|&lt;?&gt;/
@@ -2628,7 +2721,8 @@ If you write:</p>
 </code></pre>
 
 <p>it's still an error.</p>
-
+</li>
+<li>
 <p>However, it's okay for a non-null syntactic construct to have a degenerate
 case matching the null string:</p>
 
@@ -2636,19 +2730,21 @@ case matching the null string:</p>
  /a|b|c|$something/;
 </code></pre>
 
-<p>In particular, C&lt;&lt; &lt;?&gt; &gt;&gt; always matches the null string successfully,
-and C&lt;&lt; &lt;!&gt; &gt;&gt; always fails to match anything.</p>
+<p>In particular, <code>&lt;?&gt;</code> always matches the null string successfully,
+and <code>&lt;!&gt;</code> always fails to match anything.</p>
+</li>
+</ul>
 
 <h1>
 <a id="longest-token-matching" class="anchor" href="#longest-token-matching" aria-hidden="true"><span class="octicon octicon-link"></span></a>Longest-token matching</h1>
 
 <p>Since "longest-token matching" is a long phrase, we will usually refer
-to this idea as B.  The basic notion is that LTM is how people
+to this idea as <strong>LTM</strong>.  The basic notion is that LTM is how people
 tend to parse text in their heads, so the computer ought to try to do
 the same.  And parsing with LTM is all about how the computer decides
 which alternative of a set of alternatives is going to match.</p>
 
-<p>Instead of representing temporal alternation as it does in Perl 5, in Perl 6 <code>|</code> represents
+<p>Instead of representing temporal alternation as it does in Perl 5, in Perl 6 <code>|</code> represents
 logical alternation with declarative longest-token semantics.  (You may
 now use <code>||</code> to indicate the old temporal alternation.  That is, <code>|</code>
 and <code>||</code> now work within regex syntax much the same as they do outside
@@ -2672,7 +2768,7 @@ is usually excluded from such patterns, give or take a little
 lookahead.)  Basically, Perl automatically derives a lexer
 from the grammar without you having to write one yourself.</p>
 
-<p>To that end, every regex in Perl 6 is required to be able to
+<p>To that end, every regex in Perl 6 is required to be able to
 distinguish its "pure" patterns from its actions, and return its
 list of initial token patterns (transitively including the token
 patterns of any subrule called by the "pure" part of that regex, but
@@ -2705,25 +2801,23 @@ so by inserting such constructs the user controls what is considered
 a token and what is not.  The constructs deemed to terminate a token
 declaration and start the "action" part of the pattern include:</p>
 
-<p>Any :: or ::: backtracking control (but not the : possessive modifier).</p>
-
-<p>Any atom that is quantified with a frugal match (using the <code>?</code> modifier).</p>
-
-<p>Any <code>{...}</code> action, but not an assertion containing a closure.
+<ul>
+<li>Any :: or ::: backtracking control (but not the : possessive modifier).</li>
+<li>Any atom that is quantified with a frugal match (using the <code>?</code> modifier).</li>
+<li>Any <code>{...}</code> action, but not an assertion containing a closure.
 (The empty closure <code>{}</code> is customarily used to explicitly terminate
 the pure part of the pattern.)  The closure form of the general
 <code>**{...}</code> quantifier also terminates the longest token, but the
-closureless forms of quantifier do not.</p>
-
-<p>Any sequential control flow operator such as <code>||</code> or <code>&amp;&amp;</code>.</p>
-
-<p>As a consequence of the previous point, and because the standard
-grammar's C&lt;&lt;  &gt;&gt; rule defines whitespace using <code>||</code>, the
+closureless forms of quantifier do not.</li>
+<li>Any sequential control flow operator such as <code>||</code> or <code>&amp;&amp;</code>.</li>
+<li>As a consequence of the previous point, and because the standard
+grammar's <code>&lt;ws&gt;</code> rule defines whitespace using <code>||</code>, the
 longest token is also terminated by any part of the regex or rule
-that <code>might</code> match whitespace using that rule, including whitespace
+that <em>might</em> match whitespace using that rule, including whitespace
 implicitly matched via <code>:sigspace</code>.  (However, token declarations are
 specifically allowed to recognize whitespace within a token by using
-such lower-level primitives as C&lt;\h+&gt; or other character classes.)</p>
+such lower-level primitives as <code>\h+</code> or other character classes.)</li>
+</ul>
 
 <p>Subpatterns (captures) specifically do not terminate the token pattern,
 but may require a reparse of the token to find the location
@@ -2741,7 +2835,7 @@ to the next best token candidate, which might be the same length or shorter,
 but can never be longer than the current candidate.</p>
 
 <p>For a pattern that contains a positive lookahead assertion such as
-C&lt;&lt; &lt;?foo&gt; &gt;&gt; or C&lt;&lt; &lt;?before \s&gt; &gt;&gt;, the assertion is assumed to be
+<code>&lt;?foo&gt;</code> or <code>&lt;?before \s&gt;</code>, the assertion is assumed to be
 more specific than the subsequent pattern, so the lookahead's pattern
 is counted as the final part of the longest token; the longest-token
 matcher will be smart enough to treat the extra bit as 0-width, that
@@ -2751,14 +2845,14 @@ enough to participate in LTM, the rematcher may simply optimize away
 the rematching, since the lookahead already matched in the LTM engine.)</p>
 
 <p>However, for a pattern that contains a negative lookahead assertion
-such as C&lt;&lt; &lt;!foo&gt; &gt;&gt; or C&lt;&lt; &lt;!before \s&gt; &gt;&gt;, just the opposite is
+such as <code>&lt;!foo&gt;</code> or <code>&lt;!before \s&gt;</code>, just the opposite is
 true: the subsequent pattern is assumed to be more specific than
 the assertion's.  So LTM completely ignores negative lookaheads, and
 continues to look for pure patterns in whatever follows the negative
 lookahead.  You might say that positive lookaheads are opaque to LTM,
 but negative lookaheads are transparent to LTM.  As a consequence,
 if you wish to write a positive lookahead that is transparent to
-LTM, you may indicate this with a double negation: C&lt;&lt; &lt;!!foo&gt; &gt;&gt;.
+LTM, you may indicate this with a double negation: <code>&lt;!!foo&gt;</code>.
 (The optimizer is free to remove the double negation, but not the
 transparency.)</p>
 
@@ -2788,27 +2882,33 @@ the regex containing the <code>||</code>.</p>
 <h1>
 <a id="return-values-from-matches" class="anchor" href="#return-values-from-matches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return values from matches</h1>
 
-<p>=head2 Match objects</p>
+<h2>
+<a id="match-objects" class="anchor" href="#match-objects" aria-hidden="true"><span class="octicon octicon-link"></span></a>Match objects</h2>
 
+<ul>
+<li>
 <p>A successful match always returns a <code>Match</code> object, which is generally also
 put into <code>$/</code>, a dynamic lexical declared in the outer
 routine that is calling the regex.  (A named <code>regex</code>, <code>token</code>,
 or <code>rule</code> is a routine, and hence declares its own
 lexical <code>$/</code> variable, which always refers to the most recent
 submatch within the rule, if any.)  The current match state is
-kept in the regex's C&lt;$¢&gt; variable which will eventually get
+kept in the regex's <code>$?</code> variable which will eventually get
 bound to the user's <code>$/</code> variable when the match completes.</p>
 
 <p>An unsuccessful match returns <code>Nil</code> (and sets <code>$/</code> to <code>Nil</code> if
 the match would have set it).</p>
-
+</li>
+<li>
 <p>Notionally, a match object contains (among other things) a boolean
 success value, an array of ordered submatch objects, and a hash of named
-submatch objects.  (It also optionally carries an I normally
+submatch objects.  (It also optionally carries an <em>abstract object</em> normally
 used to build up an abstract syntax tree,)  To provide convenient
 access to these various values, the match object evaluates differently
 in different contexts:</p>
 
+<ul>
+<li>
 <p>In boolean context it evaluates as true or false (i.e. did the match
 succeed?):</p>
 
@@ -2817,10 +2917,11 @@ succeed?):</p>
  /pattern/; if $/ {...}
 </code></pre>
 
-<p>With C&lt;:global&gt; or C&lt;:overlap&gt; or C&lt;:exhaustive&gt; the boolean is
+<p>With <code>:global</code> or <code>:overlap</code> or <code>:exhaustive</code> the boolean is
 allowed to return true on the first match.  The <code>Match</code> object can
 produce the rest of the results lazily if evaluated in list context.</p>
-
+</li>
+<li>
 <p>In string context it evaluates to the stringified value of its match,
 which is usually the entire matched string:</p>
 
@@ -2829,8 +2930,9 @@ which is usually the entire matched string:</p>
  $text ~~ /&lt;.ident&gt;/  &amp;&amp;  print %hash{~$/};
 </code></pre>
 
-<p>But generally you should say C&lt;~$/&gt; if you mean C&lt;~$/&gt;.</p>
-
+<p>But generally you should say <code>~$/</code> if you mean <code>~$/</code>.</p>
+</li>
+<li>
 <p>In numeric context it evaluates to the numeric value of its match,
 which is usually the entire matched string:</p>
 
@@ -2838,17 +2940,18 @@ which is usually the entire matched string:</p>
  # or equivalently:
  /\d+/; $sum = $sum + $/;
 </code></pre>
-
+</li>
+<li>
 <p>When used as a scalar, a <code>Match</code> object evaluates to itself.</p>
 
 <p>However, sometimes you would like an alternate scalar value to
 ride along with the match.  The <code>Match</code> object itself describes
-a concrete parse tree, so this extra value is called an <code>abstract</code>
+a concrete parse tree, so this extra value is called an <em>abstract</em>
 object; it rides along as an attribute of the <code>Match</code> object.
 The <code>.made</code> method by default returns an undefined value.
-C&lt;$()&gt; is a shorthand for C&lt;$($/.made // ~$/)&gt;.</p>
+<code>$()</code> is a shorthand for <code>$($/.made // ~$/)</code>.</p>
 
-<p>Therefore C&lt;$()&gt; is usually just the entire match string, but
+<p>Therefore <code>$()</code> is usually just the entire match string, but
 you can override that by calling <code>make</code> inside a regex:</p>
 
 <pre><code>my $moose = $(m[
@@ -2858,12 +2961,12 @@ you can override that by calling <code>make</code> inside a regex:</p>
 ]);
 </code></pre>
 
-<p>This puts the new abstract node into C&lt;$/.made&gt;.  An AST node may be of any
+<p>This puts the new abstract node into <code>$/.made</code>.  An AST node may be of any
 type.  Using the <code>make</code>/<code>.made</code> mechanism, it is convenient to build up an
 abstract syntax tree of arbitrary node types.</p>
 
 <p>However, the <code>make</code> function is not limited to be used for storing AST
-nodes and building abstract syntax trees only.  This is just a specific Perl-6
+nodes and building abstract syntax trees only.  This is just a specific Perl 6
 internal use of this functionality.  Nor does the <code>make</code> function impose any
 item or list context onto its argument, so if you say something ambiguously
 listy like</p>
@@ -2889,17 +2992,19 @@ make $(foo())
 <p>The <code>.ast</code> method is a synonym <code>.made</code> with no differing behavior. It exists
 both for historical reasons and as a way to indicate to those reading your code
 a more AST-like use of the <code>made</code>/<code>.make</code> mechanism.</p>
-
-<p>You may also capture a subset of the match using the C&lt;&lt; &lt;(...)&gt; &gt;&gt; construct:</p>
+</li>
+<li>
+<p>You may also capture a subset of the match using the <code>&lt;(...)&gt;</code> construct:</p>
 
 <pre><code>"foo123bar" ~~ / foo &lt;( \d+ )&gt; bar /
 say $();    # says 123
 </code></pre>
 
-<p>In this case C&lt;$()&gt; is always a string when doing string
+<p>In this case <code>$()</code> is always a string when doing string
 matching, and a list of one or more elements when doing list matching.
 This construct does not set the <code>.made</code> attribute.</p>
-
+</li>
+<li>
 <p>When used as an array, a <code>Match</code> object pretends to be an array of all
 its positional captures.  Hence</p>
 
@@ -2917,7 +3022,7 @@ its positional captures.  Hence</p>
 <pre><code> $mystring = "{ ms/ (\S+) '=&gt;' (\S+)/[0] }";
 </code></pre>
 
-<p>To get all the captures into a string, use a <code>zen</code> slice:</p>
+<p>To get all the captures into a string, use a <em>zen</em> slice:</p>
 
 <pre><code> $mystring = "{ ms/ (\S+) '=&gt;' (\S+)/[] }";
 </code></pre>
@@ -2928,39 +3033,42 @@ its positional captures.  Hence</p>
 </code></pre>
 
 <p>Note that, as a scalar variable, <code>$/</code> doesn't automatically flatten
-in list context.  Use C&lt;@()&gt; as a shorthand for C&lt;@($/)&gt; to flatten
+in list context.  Use <code>@()</code> as a shorthand for <code>@($/)</code> to flatten
 the positional captures under list context.  Note that a <code>Match</code> object
-is allowed to evaluate its match lazily in list context.  Use C
+is allowed to evaluate its match lazily in list context.  Use <code>eager @()</code>
 to force an eager match.</p>
-
+</li>
+<li>
 <p>When used as a hash, a <code>Match</code> object pretends to be a hash of all its named
 captures.  The keys do not include any sigils, so if you capture to
-variable C&lt;&lt; @ &gt;&gt; its real name is C&lt;$/{'foo'}&gt; or C&lt;&lt; $/ &gt;&gt;.
-However, you may still refer to it as C&lt;&lt; @ &gt;&gt; anywhere <code>$/</code>
+variable <code>@&lt;foo&gt;</code> its real name is <code>$/{'foo'}</code> or <code>$/&lt;foo&gt;</code>.
+However, you may still refer to it as <code>@&lt;foo&gt;</code> anywhere <code>$/</code>
 is visible.  (But it is erroneous to use the same name for two different
 capture datatypes.)</p>
 
 <p>Note that, as a scalar variable, <code>$/</code> doesn't automatically flatten
-in list context.  Use C&lt;%()&gt; as a shorthand for C&lt;%($/)&gt; to flatten as a
-hash, or bind it to a variable of the appropriate type.  As with C&lt;@()&gt;,
-it's possible for C&lt;%()&gt; to produce its pairs lazily in list context.</p>
-
-<p>The numbered captures may be treated as named, so C&lt;&lt; $ &gt;&gt;
-is equivalent to C&lt;$/[0,1,2]&gt;.  This allows you to write slices of
-intermixed named and numbered captures.</p>
-
-<p>The C&lt;.keys&gt;, C&lt;.values&gt; and C&lt;.kv&gt; methods act both on the list and hash
+in list context.  Use <code>%()</code> as a shorthand for <code>%($/)</code> to flatten as a
+hash, or bind it to a variable of the appropriate type.  As with <code>@()</code>,
+it's possible for <code>%()</code> to produce its pairs lazily in list context.</p>
+</li>
+<li><p>The numbered captures may be treated as named, so <code>$&lt;0 1 2&gt;</code>
+is equivalent to <code>$/[0,1,2]</code>.  This allows you to write slices of
+intermixed named and numbered captures.</p></li>
+<li>
+<p>The <code>.keys</code>, <code>.values</code> and <code>.kv</code> methods act both on the list and hash
 part, with the list part coming first.</p>
 
 <pre><code>'abcd' ~~ /(.)(.)**2 &lt;alpha&gt;/;
 say ~$/.keys;           # 0 1 alpha
 </code></pre>
-
-<p>In ordinary code, variables <code>$0</code>, C&lt;$1&gt;, etc. are just aliases into
-C&lt;$/[0]&gt;, C&lt;$/[1]&gt;, etc.  Hence they will all be undefined if the
+</li>
+<li><p>In ordinary code, variables <code>$0</code>, <code>$1</code>, etc. are just aliases into
+<code>$/[0]</code>, <code>$/[1]</code>, etc.  Hence they will all be undefined if the
 last match failed (unless they were explicitly bound in a closure without
-using the <code>let</code> keyword).</p>
-
+using the <code>let</code> keyword).</p></li>
+</ul>
+</li>
+<li>
 <p><code>Match</code> objects have methods that provide additional information about
 the match. For example:</p>
 
@@ -2985,15 +3093,16 @@ $/.prematch  # $/.orig.substr(0, $/.from)
 $/.postmatch # $/.orig.substr($/.to)
 </code></pre>
 
-<p>Within the regex the current match state C&lt;$¢&gt; also provides</p>
+<p>Within the regex the current match state <code>$?</code> also provides</p>
 
 <pre><code>.pos        # the current match position
 </code></pre>
 
-<p>This last value may correspond to either C&lt;$¢.from&gt; or C&lt;$¢.to&gt; depending
+<p>This last value may correspond to either <code>$?.from</code> or <code>$?.to</code> depending
 on whether the match is proceeding in a forward or backward direction
-(the latter case arising inside an C&lt;&lt; &lt;?after ...&gt; &gt;&gt; assertion).</p>
-
+(the latter case arising inside an <code>&lt;?after ...&gt;</code> assertion).</p>
+</li>
+<li>
 <p>As described above, a <code>Match</code> in list context returns its positional
 captures.  However, sometimes you'd rather get a flat list of tokens
 in the order they occur in the text.  The <code>.caps</code> method returns
@@ -3016,14 +3125,15 @@ place.  Calling <code>.made</code> on such a <code>Match</code> object always re
 <p>A warning will be issued if either <code>.caps</code> or <code>.chunks</code> discovers
 that it has overlapping bindings.  In the absence of such overlap,
 <code>.chunks</code> guarantees to map every part of its matched string (between
-C&lt;.from&gt; and C&lt;.to&gt;) to exactly one element of its returned matches,
+<code>.from</code> and <code>.to</code>) to exactly one element of its returned matches,
 so coverage is complete.</p>
 
 <p>[Conjecture: we could also have <code>.deepcaps</code> and <code>.deepchunks</code> that
 recursively expand any capture containing submatches.  Presumably the
 keys of such returned chunks would indicate the "pedigree" of bindings
 in the parse tree.]</p>
-
+</li>
+<li>
 <p>All match attempts--successful or not--against any regex, subrule,
 or subpattern (see below) return an object that can be evaluated
 as a boolean.  (This object will be either a <code>Match</code> or a <code>Nil</code>.)
@@ -3032,15 +3142,17 @@ That is:</p>
 <pre><code> $match_obj = $str ~~ /pattern/;
  say "Matched" if $match_obj;
 </code></pre>
-
+</li>
+<li>
 <p>This returned object is also automatically bound to the lexical
 <code>$/</code> variable of the current surroundings regardless of success. That is:</p>
 
 <pre><code> $str ~~ /pattern/;
  say "Matched" if $/;
 </code></pre>
-
-<p>Inside a regex, the C&lt;$¢&gt; variable holds the current regex's incomplete
+</li>
+<li>
+<p>Inside a regex, the <code>$?</code> variable holds the current regex's incomplete
 <code>Match</code> object, known as a match state (of type <code>Cursor</code>).  Generally this should not
 be modified unless you know how to create and propagate match states.
 All regexes actually return match states even when you think they're
@@ -3059,7 +3171,7 @@ say $();                      # says 'bar'
 </code></pre>
 
 <p>The value of any <code>Match</code> object (such as an abstract object) is available via
-the C&lt;&lt; .made &gt;&gt; method.  Hence these abstract objects can be managed
+the <code>.made</code> method.  Hence these abstract objects can be managed
 independently of the returned cursor objects.</p>
 
 <p>The current cursor object must always be derived from <code>Cursor</code>, or the
@@ -3070,11 +3182,16 @@ as an object whose type is the name of the grammar you are in, but the
 current language can be modified by various methods as they mutate the
 current language by returning cursor objects blessed into a different
 type, which may or may not be derived from the current grammar.</p>
+</li>
+</ul>
 
-<p>=head2 Subpattern captures</p>
+<h2>
+<a id="subpattern-captures" class="anchor" href="#subpattern-captures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Subpattern captures</h2>
 
+<ul>
+<li>
 <p>Any part of a regex that is enclosed in capturing parentheses is called a
-<code>subpattern</code>. For example:</p>
+<em>subpattern</em>. For example:</p>
 
 <pre><code>    #               subpattern
     #  _________________/\___________________
@@ -3084,23 +3201,23 @@ type, which may or may not be derived from the current grammar.</p>
     # |         |      |  |      |           |
   ms/ (I am the (walrus), ( khoo )**2  kachoo) /;
 </code></pre>
-
-<p>Each subpattern in a regex produces a <code>Match</code> object if it is
-successfully matched.</p>
-
+</li>
+<li><p>Each subpattern in a regex produces a <code>Match</code> object if it is
+successfully matched.</p></li>
+<li>
 <p>Each subpattern is either explicitly assigned to a named destination or
 implicitly added to an array of matches.</p>
 
 <p>For each subpattern that is not explicitly given a name,
 the subpattern's <code>Match</code> object is pushed onto the array inside
 the outer <code>Match</code> object belonging to the surrounding scope (known as
-its I). The surrounding scope may be either the
+its <em>parent <code>Match</code> object</em>). The surrounding scope may be either the
 innermost surrounding subpattern (if the subpattern is nested) or else
 the entire regex itself.</p>
-
-<p>Like all captures, these assignments to the array are hypothetical, and
-are undone if the subpattern is backtracked.</p>
-
+</li>
+<li><p>Like all captures, these assignments to the array are hypothetical, and
+are undone if the subpattern is backtracked.</p></li>
+<li>
 <p>For example, if the following pattern matched successfully:</p>
 
 <pre><code>    #                subpat-A
@@ -3112,20 +3229,25 @@ are undone if the subpattern is backtracked.</p>
   ms/ (I am the (walrus), ( khoo )**2 kachoo) /;
 </code></pre>
 
-<p>then the <code>Match</code> objects representing the matches made by I
-and I would be successively pushed onto the array inside I's <code>Match</code> object. Then I's <code>Match</code> object would itself be
+<p>then the <code>Match</code> objects representing the matches made by <em>subpat-B</em>
+and <em>subpat-C</em> would be successively pushed onto the array inside <em>subpat-
+A</em>'s <code>Match</code> object. Then <em>subpat-A</em>'s <code>Match</code> object would itself be
 pushed onto the array inside the <code>Match</code> object for the entire regex
 (i.e. onto <code>$/</code>'s array).</p>
+</li>
+<li><p>As a result of these semantics, capturing parentheses in Perl 6 are
+hierarchical, not linear (see <a href="#nested-subpattern-captures">"Nested subpattern captures"</a>).</p></li>
+</ul>
 
-<p>As a result of these semantics, capturing parentheses in Perl 6 are
-hierarchical, not linear (see L).</p>
+<h2>
+<a id="accessing-captured-subpatterns" class="anchor" href="#accessing-captured-subpatterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accessing captured subpatterns</h2>
 
-<p>=head2 Accessing captured subpatterns</p>
-
+<ul>
+<li>
 <p>The array elements of a <code>Match</code> object are referred to using either the
-standard array access notation (e.g. C&lt;$/[0]&gt;, C&lt;$/[1]&gt;, C&lt;$/[2]&gt;, etc.)
+standard array access notation (e.g. <code>$/[0]</code>, <code>$/[1]</code>, <code>$/[2]</code>, etc.)
 or else via the corresponding lexically scoped numeric aliases (i.e.
-<code>$0</code>, C&lt;$1&gt;, C&lt;$2&gt;, etc.) So:</p>
+<code>$0</code>, <code>$1</code>, <code>$2</code>, etc.) So:</p>
 
 <pre><code> say "$/[1] was found between $/[0] and $/[2]";
 </code></pre>
@@ -3134,13 +3256,13 @@ or else via the corresponding lexically scoped numeric aliases (i.e.
 
 <pre><code> say "$1 was found between $0 and $2";
 </code></pre>
-
-<p>Note that, in Perl 6, the numeric capture variables start from $0, not
-$1, with the numbers corresponding to the element's index inside <code>$/</code>.</p>
-
+</li>
+<li><p>Note that, in Perl 6, the numeric capture variables start from $0, not
+$1, with the numbers corresponding to the element's index inside <code>$/</code>.</p></li>
+<li>
 <p>The array elements of the regex's <code>Match</code> object (i.e. <code>$/</code>)
 store individual <code>Match</code> objects representing the substrings that were
-matched and captured by the first, second, third, etc. <code>outermost</code>
+matched and captured by the first, second, third, etc. <em>outermost</em>
 (i.e. unnested) subpatterns. So these elements can be treated like fully
 fledged match results. For example:</p>
 
@@ -3150,16 +3272,20 @@ fledged match results. For example:</p>
        @datepos = ( $0.from() .. $2.to() );  # Call Match methods
  }
 </code></pre>
+</li>
+</ul>
 
-<p>=head2 Nested subpattern captures</p>
+<h2>
+<a id="nested-subpattern-captures" class="anchor" href="#nested-subpattern-captures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nested subpattern captures</h2>
 
-<p>Substrings matched by <code>nested</code> subpatterns (i.e. nested capturing
+<ul>
+<li>Substrings matched by <em>nested</em> subpatterns (i.e. nested capturing
 parens) are assigned to the array inside the nested subpattern's parent <code>Match</code>
-object, not to the array of <code>$/</code>.</p>
+object, not to the array of <code>$/</code>.</li>
+<li>
+<p>This behavior is quite different from Perl 5 semantics:</p>
 
-<p>This behavior is quite different from Perl 5 semantics:</p>
-
-<pre><code>  # Perl-5...
+<pre><code>  # Perl 5...
   #
   # $1---------------------  $4---------  $5------------------
   # |   $2---------------  | |          | | $6----  $7------  |
@@ -3167,10 +3293,11 @@ object, not to the array of <code>$/</code>.</p>
   # |   |         |   |  | | |          | | |     | |       | |
  m/ ( A (guy|gal|g(\S+)  ) ) (sees|calls) ( (the|a) (gal|guy) ) /x;
 </code></pre>
+</li>
+<li>
+<p>In Perl 6, nested parens produce properly nested captures:</p>
 
-<p>In Perl 6, nested parens produce properly nested captures:</p>
-
-<pre><code>  # Perl-6...
+<pre><code>  # Perl 6...
   #
   # $0---------------------  $1---------  $2------------------
   # |   $0[0]------------  | |          | | $2[0]-  $2[1]---  |
@@ -3178,36 +3305,42 @@ object, not to the array of <code>$/</code>.</p>
   # |   |         |   |  | | |          | | |     | |       | |
  m/ ( A (guy|gal|g(\S+)  ) ) (sees|calls) ( (the|a) (gal|guy) ) /;
 </code></pre>
+</li>
+</ul>
 
-<p>=head2 Quantified subpattern captures</p>
+<h2>
+<a id="quantified-subpattern-captures" class="anchor" href="#quantified-subpattern-captures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quantified subpattern captures</h2>
 
+<ul>
+<li>
 <p>If a subpattern is directly quantified with <code>?</code>, it either produces
 a single <code>Match</code> object, or <code>Nil</code>.  If a subpattern is directly
 quantified using any other quantifier, it never produces a single
 <code>Match</code> object.  Instead, it produces a list of <code>Match</code> objects
 corresponding to the sequence of individual matches made by the
 repeated subpattern.  If we need to distinguish the two categories,
-<code>?</code> is an I, while <code>*</code>, C&lt;+&gt;, and <code>**</code> are called
-I.</p>
+<code>?</code> is an <em>item quantifier</em>, while <code>*</code>, <code>+</code>, and <code>**</code> are called
+<em>list quantifiers</em>.</p>
 
 <p>If 0 values match, the captured value depends on which quantifier
 is used.  If the quantifier is <code>?</code>, a <code>Nil</code> is captured if it
 matched 0 times.  If the quantifier is <code>*</code>, the empty list, <code>()</code>,
-is captured instead.  (Nothing is captured by the C&lt;+&gt; quantifier
+is captured instead.  (Nothing is captured by the <code>+</code> quantifier
 if it matches 0 times, since it causes backtracking, but the capture
 variable should return <code>Nil</code> if an attempt is made to use it after
 an unsuccessful match.)  A <code>**</code> quantifier returns () as <code>*</code> does
 if it the minimum of its range is 0, and backtracks otherwise.</p>
 
-<p>Note that C&lt;** 0..1&gt; is always considered a list quantifier, unlike <code>?</code>.</p>
+<p>Note that <code>** 0..1</code> is always considered a list quantifier, unlike <code>?</code>.</p>
 
 <p>The rationale for treating <code>?</code> as an item quantifier is to make
-it consistent with how C&lt;$object.?meth&gt; is defined, and to reduce
+it consistent with how <code>$object.?meth</code> is defined, and to reduce
 the need for gratuitous <code>.[0]</code> subscripts, which is surprising to
 most people.  Now that <code>Nil</code> is considered undefined rather than a
-synonym for <code>()</code>, it's easy to use C&lt;$0 // "default"&gt; or some such
+synonym for <code>()</code>, it's easy to use <code>$0 // "default"</code> or some such
 to dereference a capture safely.</p>
-
+</li>
+<li>
 <p>Because a list-quantified subpattern returns a list of <code>Match</code> objects, the
 corresponding array element for the quantified capture will store a
 (nested) array rather than a single <code>Match</code> object.  For example:</p>
@@ -3217,9 +3350,14 @@ corresponding array element for the quantified capture will store a
      say "Values: @($1)";      # Quantified   --&gt; array of Match
  }
 </code></pre>
+</li>
+</ul>
 
-<p>=head2 Indirectly quantified subpattern captures</p>
+<h2>
+<a id="indirectly-quantified-subpattern-captures" class="anchor" href="#indirectly-quantified-subpattern-captures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Indirectly quantified subpattern captures</h2>
 
+<ul>
+<li>
 <p>A subpattern may sometimes be nested inside a quantified non-capturing
 structure:</p>
 
@@ -3232,12 +3370,13 @@ structure:</p>
  m/ [ (\w+) \: (\w+ \h*)* \n ] ** 2..* /
 </code></pre>
 
-<p>Non-capturing brackets I create a separate nested lexical scope,
+<p>Non-capturing brackets <em>don't</em> create a separate nested lexical scope,
 so the two subpatterns inside them are actually still in the regex's
-top-level scope, hence their top-level designations: <code>$0</code> and C&lt;$1&gt;.</p>
-
+top-level scope, hence their top-level designations: <code>$0</code> and <code>$1</code>.</p>
+</li>
+<li>
 <p>However, because the two subpatterns are inside a quantified
-structure, <code>$0</code> and C&lt;$1&gt; will each contain an array.
+structure, <code>$0</code> and <code>$1</code> will each contain an array.
 The elements of that array will be the submatches returned by the
 corresponding subpatterns on each iteration of the non-capturing
 parentheses. For example:</p>
@@ -3261,12 +3400,13 @@ parentheses. For example:</p>
  #         Match.new(str=&gt;'barb' ),
  #       ]
 </code></pre>
-
-<p>In contrast, if the outer quantified structure is a <code>capturing</code>
-structure (i.e. a subpattern) then it <code>will</code> introduce a nested
+</li>
+<li>
+<p>In contrast, if the outer quantified structure is a <em>capturing</em>
+structure (i.e. a subpattern) then it <em>will</em> introduce a nested
 lexical scope. That outer quantified structure will then
 return an array of <code>Match</code> objects representing the captures
-of the inner parens for <code>every</code> iteration (as described above). That is:</p>
+of the inner parens for <em>every</em> iteration (as described above). That is:</p>
 
 <pre><code> my $text = "foo:food fool\nbar:bard barb";
 
@@ -3299,22 +3439,27 @@ of the inner parens for <code>every</code> iteration (as described above). That 
  #
  # and there is no $1
 </code></pre>
-
+</li>
+<li>
 <p>In other words, quantified non-capturing parens collect their components
 into handy flattened lists, whereas quantified capturing parens collect
 their components in a handy hierarchical structure.</p>
 
 <p>Additionally, the sublists are kept "in sync" with each other, as each empty
-match, in the case of C&lt;$0[1]&gt; in our example if a <code>:</code> is followed by a
+match, in the case of <code>$0[1]</code> in our example if a <code>:</code> is followed by a
 newline character, will have a corresponding Nil in the given list.</p>
+</li>
+</ul>
 
-<p>=head2 Subpattern numbering</p>
+<h2>
+<a id="subpattern-numbering" class="anchor" href="#subpattern-numbering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Subpattern numbering</h2>
 
-<p>The index of a given subpattern can always be statically determined, but
+<ul>
+<li>The index of a given subpattern can always be statically determined, but
 is not necessarily unique nor always monotonic. The numbering of subpatterns
 restarts in each lexical scope (either a regex, a subpattern, or the
-branch of an alternation).</p>
-
+branch of an alternation).</li>
+<li>
 <p>In particular, the index of capturing parentheses restarts after each
 <code>|</code> or <code>||</code> (but not after each <code>&amp;</code> or <code>&amp;&amp;</code>). Hence:</p>
 
@@ -3326,22 +3471,24 @@ branch of an alternation).</p>
 </code></pre>
 
 <p>This means that if the second alternation matches, the list value of the match will
-contain C&lt;('every', 'green', 'BEM', 'devours', 'faces')&gt; rather than
-Perl-5's C&lt;(undef, undef, undef, undef, undef, undef, 'every', 'green', 'BEM',
-'devours', 'faces')&gt;.</p>
+contain <code>('every', 'green', 'BEM', 'devours', 'faces')</code> rather than
+Perl 5's <code>(undef, undef, undef, undef, undef, undef, 'every', 'green', 'BEM',
+'devours', 'faces')</code>.</p>
+</li>
+<li><p>Note that it is still possible to mimic the monotonic Perl 5 capture
+indexing semantics.  See <a href="#numbered-scalar-aliasing">"Numbered scalar aliasing"</a> below for details.</p></li>
+</ul>
 
-<p>Note that it is still possible to mimic the monotonic Perl 5 capture
-indexing semantics.  See L below for details.</p>
+<h2>
+<a id="subrule-captures" class="anchor" href="#subrule-captures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Subrule captures</h2>
 
-<p>=head2 Subrule captures</p>
-
-<p>Any call to a named C&lt;&lt;  &gt;&gt; within a pattern is known as a
-<code>subrule</code>, whether that regex is actually defined as a <code>regex</code> or
-<code>token</code> or <code>rule</code> or even an ordinary <code>method</code> or <code>multi</code>.</p>
-
-<p>Any bracketed construct that is aliased (see L below) to a
-named variable is also a subrule.</p>
-
+<ul>
+<li>Any call to a named <code>&lt;regex&gt;</code> within a pattern is known as a
+<em>subrule</em>, whether that regex is actually defined as a <code>regex</code> or
+<code>token</code> or <code>rule</code> or even an ordinary <code>method</code> or <code>multi</code>.</li>
+<li>Any bracketed construct that is aliased (see <a href="#aliasing">"Aliasing"</a> below) to a
+named variable is also a subrule.</li>
+<li>
 <p>For example, this regex contains three subrules:</p>
 
 <pre><code>  # subrule       subrule     subrule
@@ -3349,7 +3496,8 @@ named variable is also a subrule.</p>
   # |     |  |             |  |     |
  m/ &lt;ident&gt;  $&lt;spaces&gt;=(\s*)  &lt;digit&gt;+ /
 </code></pre>
-
+</li>
+<li>
 <p>Just like subpatterns, each successfully matched subrule within a regex
 produces a <code>Match</code> object. But, unlike subpatterns, that <code>Match</code>
 object is not assigned to the array inside its parent <code>Match</code> object.
@@ -3365,33 +3513,41 @@ object. For example:</p>
   # :  |     |    :          |     |            : :
   ms/  &lt;ident&gt; \: ( known as &lt;ident&gt; previously ) /
 </code></pre>
+</li>
+</ul>
 
-<p>=head2 Accessing captured subrules</p>
+<h2>
+<a id="accessing-captured-subrules" class="anchor" href="#accessing-captured-subrules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accessing captured subrules</h2>
 
+<ul>
+<li>
 <p>The hash entries of a <code>Match</code> object can be referred to using any of the
-standard hash access notations (C&lt;$/{'foo'}&gt;, C&lt;&lt; $/ &gt;&gt;, C&lt;$/«baz»&gt;,
-etc.), or else via corresponding lexically scoped aliases (C&lt;&lt; $ &gt;&gt;,
-C&lt;$«bar»&gt;, C&lt;&lt; $ &gt;&gt;, etc.)  So the previous example also implies:</p>
+standard hash access notations (<code>$/{'foo'}</code>, <code>$/&lt;bar&gt;</code>, <code>$/?baz?</code>,
+etc.), or else via corresponding lexically scoped aliases (<code>$&lt;foo&gt;</code>,
+<code>$?bar?</code>, <code>$&lt;baz&gt;</code>, etc.)  So the previous example also implies:</p>
 
 <pre><code>  #    $&lt;ident&gt;             $0&lt;ident&gt;
   #     __^__                 __^__
   #    |     |               |     |
   ms/  &lt;ident&gt; \: ( known as &lt;ident&gt; previously ) /
 </code></pre>
+</li>
+<li><p>Note that it makes no difference whether a subrule is angle-bracketed
+(<code>&lt;ident&gt;</code>) or aliased internally (<code>&lt;ident=.name&gt;</code>) or aliased
+externally (<code>$&lt;ident&gt;=(&lt;.alpha&gt;\w*)</code>). The name's the thing.</p></li>
+</ul>
 
-<p>Note that it makes no difference whether a subrule is angle-bracketed
-(C&lt;&lt;  &gt;&gt;) or aliased internally (C&lt;&lt;  &gt;&gt;) or aliased
-externally (C&lt;&lt; $=(&lt;.alpha&gt;\w*) &gt;&gt;). The name's the thing.</p>
+<h2>
+<a id="repeated-captures-of-the-same-subrule" class="anchor" href="#repeated-captures-of-the-same-subrule" aria-hidden="true"><span class="octicon octicon-link"></span></a>Repeated captures of the same subrule</h2>
 
-<p>=head2 Repeated captures of the same subrule</p>
-
-<p>If a subrule appears two (or more) times in any branch of a lexical
+<ul>
+<li>If a subrule appears two (or more) times in any branch of a lexical
 scope (i.e. twice within the same subpattern and alternation), or if
 the subrule is list-quantified anywhere within a given scope (that is,
 by any quantifier other than <code>?</code>), then its corresponding hash entry
 is always assigned an array of <code>Match</code> objects rather than a single
-<code>Match</code> object.</p>
-
+<code>Match</code> object.</li>
+<li>
 <p>Successive matches of the same subrule (whether from separate calls, or
 from a single quantified repetition) append their individual <code>Match</code>
 objects to this array. For example:</p>
@@ -3422,7 +3578,8 @@ with whitespace on its own.)</p>
      @from = @($&lt;file&gt;);
  }
 </code></pre>
-
+</li>
+<li>
 <p>To avoid name collisions, you may suppress the original name by use
 of a leading dot, and then use an alias to give the capture a different name:</p>
 
@@ -3432,9 +3589,9 @@ of a leading dot, and then use an alias to give the capture a different name:</p
  }
 </code></pre>
 
-<p>Likewise, neither of the following constructions causes C&lt;&lt;  &gt;&gt; to
+<p>Likewise, neither of the following constructions causes <code>&lt;file&gt;</code> to
 produce an array of <code>Match</code> objects, since none of them has two or more
-C&lt;&lt;  &gt;&gt; subrules in the same lexical scope:</p>
+<code>&lt;file&gt;</code> subrules in the same lexical scope:</p>
 
 <pre><code> if ms/ (keep) &lt;file&gt; | (toss) &lt;file&gt; / {
      # Each &lt;file&gt; is in a separate alternation, therefore &lt;file&gt;
@@ -3451,7 +3608,8 @@ C&lt;&lt;  &gt;&gt; subrules in the same lexical scope:</p>
      $virtual = $/[0]&lt;file&gt; if $/[0]&lt;file&gt;;
  }
 </code></pre>
-
+</li>
+<li>
 <p>On the other hand, unaliased square brackets don't confer a separate
 scope (because they don't have an associated <code>Match</code> object). So:</p>
 
@@ -3460,17 +3618,23 @@ scope (because they don't have an associated <code>Match</code> object). So:</p>
      $virtual = $/&lt;file&gt;[1] if $/&lt;file&gt;[1];
  }
 </code></pre>
+</li>
+</ul>
 
-<p>=head2 Aliasing</p>
+<h2>
+<a id="aliasing" class="anchor" href="#aliasing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aliasing</h2>
 
 <p>Aliases can be named or numbered. They can be scalar-, array-, or hash-like.
 And they can be applied to either capturing or non-capturing constructs. The
 following sections highlight special features of the semantics of some
 of those combinations.</p>
 
-<p>=head3 Named scalar aliasing to subpatterns</p>
+<h3>
+<a id="named-scalar-aliasing-to-subpatterns" class="anchor" href="#named-scalar-aliasing-to-subpatterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Named scalar aliasing to subpatterns</h3>
 
-<p>If a named scalar alias is applied to a set of <code>capturing</code> parens:</p>
+<ul>
+<li>
+<p>If a named scalar alias is applied to a set of <em>capturing</em> parens:</p>
 
 <pre><code>    #         _____/capturing parens\_____
     #        |                            |
@@ -3482,29 +3646,35 @@ of those combinations.</p>
 <code>$/</code> as unaliased parens would. Instead the aliased parens capture
 into the hash of <code>$/</code>; specifically into the hash element
 whose key is the alias name.</p>
+</li>
+<li><p>So, in the above example, a successful match sets
+<code>$&lt;key&gt;</code> (i.e. <code>$/&lt;key&gt;</code>), but <em>not</em> <code>$0</code> (i.e. not <code>$/[0]</code>).</p></li>
+<li>More specifically:
 
-<p>So, in the above example, a successful match sets
-C&lt;&lt; $ &gt;&gt; (i.e. C&lt;&lt; $/ &gt;&gt;), but <code>not</code> <code>$0</code> (i.e. not C&lt;&lt; $/[0] &gt;&gt;).</p>
-
-<p>More specifically:</p>
-
-<p>C&lt;&lt; $/ &gt;&gt; will contain the <code>Match</code> object that would previously have
-been placed in C&lt;&lt; $/[0] &gt;&gt;.</p>
-
-<p>C&lt;&lt; $/[0] &gt;&gt; will contain the A-E letter,</p>
-
-<p>C&lt;&lt; $/[1] &gt;&gt; will contain the digits,</p>
-
-<p>C&lt;&lt; $/[2] &gt;&gt; will contain the optional X.</p>
-
-<p>Another way to think about this behavior is that aliased parens create
+<ul>
+<li>
+<code>$/&lt;key&gt;</code> will contain the <code>Match</code> object that would previously have
+been placed in <code>$/[0]</code>.</li>
+<li>
+<code>$/&lt;key&gt;[0]</code> will contain the A-E letter,</li>
+<li>
+<code>$/&lt;key&gt;[1]</code> will contain the digits,</li>
+<li>
+<code>$/&lt;key&gt;[2]</code> will contain the optional X.</li>
+</ul>
+</li>
+<li>Another way to think about this behavior is that aliased parens create
 a kind of lexically scoped named subrule; that the contents of the
 parentheses are treated as if they were part of a separate subrule whose
-name is the alias.</p>
+name is the alias.</li>
+</ul>
 
-<p>=head3 Named scalar aliases applied to non-capturing brackets</p>
+<h3>
+<a id="named-scalar-aliases-applied-to-non-capturing-brackets" class="anchor" href="#named-scalar-aliases-applied-to-non-capturing-brackets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Named scalar aliases applied to non-capturing brackets</h3>
 
-<p>If a named scalar alias is applied to a set of I brackets:</p>
+<ul>
+<li>
+<p>If a named scalar alias is applied to a set of <em>non-capturing</em> brackets:</p>
 
 <pre><code>    #         __/non-capturing brackets\__
     #        |                            |
@@ -3512,27 +3682,34 @@ name is the alias.</p>
   ms/ $&lt;key&gt;=[ (&lt;[A..E]&gt;) (\d**3..6) (X?) ] /;
 </code></pre>
 
-<p>then the corresponding C&lt;&lt; $/ &gt;&gt; <code>Match</code> object contains only the string
+<p>then the corresponding <code>$/&lt;key&gt;</code> <code>Match</code> object contains only the string
 matched by the non-capturing brackets.</p>
-
-<p>In particular, the array of the C&lt;&lt; $/ &gt;&gt; entry is empty. That's
+</li>
+<li><p>In particular, the array of the <code>$/&lt;key&gt;</code> entry is empty. That's
 because square brackets do not create a nested lexical scope, so the
 subpatterns are unnested and hence correspond to $0, $1, and $2, and
-<code>not</code> to C&lt;&lt; $/[0] &gt;&gt;, C&lt;&lt; $/[1] &gt;&gt;, and C&lt;&lt; $/[2] &gt;&gt;.</p>
+<em>not</em> to <code>$/&lt;key&gt;[0]</code>, <code>$/&lt;key&gt;[1]</code>, and <code>$/&lt;key&gt;[2]</code>.</p></li>
+<li>In other words:
 
-<p>In other words:</p>
+<ul>
+<li>
+<code>$/&lt;key&gt;</code> will contain the complete substring matched by the square
+brackets (in a <code>Match</code> object, as described above),</li>
+<li>
+<code>$0</code> will contain the A-E letter,</li>
+<li>
+<code>$1</code> will contain the digits,</li>
+<li>
+<code>$2</code> will contain the optional X.</li>
+</ul>
+</li>
+</ul>
 
-<p>C&lt;&lt; $/ &gt;&gt; will contain the complete substring matched by the square
-brackets (in a <code>Match</code> object, as described above),</p>
+<h3>
+<a id="named-scalar-aliasing-to-subrules" class="anchor" href="#named-scalar-aliasing-to-subrules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Named scalar aliasing to subrules</h3>
 
-<p>C&lt;&lt; $0 &gt;&gt; will contain the A-E letter,</p>
-
-<p>C&lt;&lt; $1 &gt;&gt; will contain the digits,</p>
-
-<p>C&lt;&lt; $2 &gt;&gt; will contain the optional X.</p>
-
-<p>=head3 Named scalar aliasing to subrules</p>
-
+<ul>
+<li>
 <p>If a subrule is aliased, it assigns its <code>Match</code> object to the hash
 entry whose key is the name of the alias, as well as to the original name.</p>
 
@@ -3547,8 +3724,9 @@ entry whose key is the name of the alias, as well as to the original name.</p>
      say "Identified as $/&lt;id&gt;";    # $/&lt;ident&gt; is undefined
  }
 </code></pre>
-
-<p>Hence aliasing a dotted subrule <code>changes</code> the destination of the subrule's <code>Match</code>
+</li>
+<li>
+<p>Hence aliasing a dotted subrule <em>changes</em> the destination of the subrule's <code>Match</code>
 object. This is particularly useful for differentiating two or more calls to
 the same subrule in the same scope. For example:</p>
 
@@ -3557,9 +3735,14 @@ the same subrule in the same scope. For example:</p>
      $to   = $&lt;dir&gt;;
  }
 </code></pre>
+</li>
+</ul>
 
-<p>=head3 Numbered scalar aliasing</p>
+<h3>
+<a id="numbered-scalar-aliasing" class="anchor" href="#numbered-scalar-aliasing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Numbered scalar aliasing</h3>
 
+<ul>
+<li>
 <p>If a numbered alias is used instead of a named alias:</p>
 
 <pre><code> m/ $1=(&lt;-[:]&gt;*) \:  $0=&lt;ident&gt; /   # captures $&lt;ident&gt; too
@@ -3570,7 +3753,8 @@ the same subrule in the same scope. For example:</p>
 cases described above), except that the resulting <code>Match</code> object is
 assigned to the corresponding element of the appropriate array rather
 than to an element of the hash.</p>
-
+</li>
+<li>
 <p>If any numbered alias is used, the numbering of subsequent unaliased
 subpatterns in the same scope automatically increments from that
 alias number (much like enum values increment from the last explicit
@@ -3580,8 +3764,9 @@ value). That is:</p>
   # |       |  |    |  |       |  |    |
  m/ $1=(food)  (bard)  $6=(bazd)  (quxd) /;
 </code></pre>
-
-<p>This I behavior is particularly useful for reinstituting
+</li>
+<li>
+<p>This <em>follow-on</em> behavior is particularly useful for reinstituting
 Perl5 semantics for consecutive subpattern numbering in alternations:</p>
 
 <pre><code> $tune_up = rx/ ("don't") (ray) (me) (for) (solar tea), ("d'oh!")
@@ -3589,11 +3774,12 @@ Perl5 semantics for consecutive subpattern numbering in alternations:</p>
               #              $7      $8    $9        $10
               /;
 </code></pre>
+</li>
+<li>
+<p>It also provides an easy way in Perl 6 to reinstitute the unnested
+numbering semantics of nested Perl 5 subpatterns:</p>
 
-<p>It also provides an easy way in Perl 6 to reinstitute the unnested
-numbering semantics of nested Perl 5 subpatterns:</p>
-
-<pre><code>  # Perl-5...
+<pre><code>  # Perl 5...
   #               $1
   #  _____________/\___________
   # |    $2        $3      $4  |
@@ -3601,7 +3787,8 @@ numbering semantics of nested Perl 5 subpatterns:</p>
   # | |       | |       | |  | |
  m/ ( ( [A-E] ) (\d{3,6}) (X?) ) /x;
 
-  # Perl-6...
+
+  # Perl 6...
   #                $0
   #  ______________/\______________
   # |   $0[0]       $0[1]    $0[2] |
@@ -3609,7 +3796,8 @@ numbering semantics of nested Perl 5 subpatterns:</p>
   # | |        | |          | |  | |
  m/ ( (&lt;[A..E]&gt;) (\d ** 3..6) (X?) ) /;
 
-  # Perl-6 simulating Perl-5...
+
+  # Perl 6 simulating Perl 5...
   #                 $1
   #  _______________/\________________
   # |        $2          $3       $4  |
@@ -3620,20 +3808,24 @@ numbering semantics of nested Perl 5 subpatterns:</p>
 
 <p>The non-capturing brackets don't introduce a scope, so the subpatterns within
 them are at regex scope, and hence numbered at the top level. Aliasing the
-square brackets to C&lt;$1&gt; means that the next subpattern at the same level
-(i.e. the C&lt;&lt; (&lt;[A..E]&gt;) &gt;&gt;) is numbered sequentially (i.e. C&lt;$2&gt;), etc.</p>
+square brackets to <code>$1</code> means that the next subpattern at the same level
+(i.e. the <code>(&lt;[A..E]&gt;)</code>) is numbered sequentially (i.e. <code>$2</code>), etc.</p>
+</li>
+</ul>
 
-<p>=head3 Scalar aliases applied to quantified constructs</p>
+<h3>
+<a id="scalar-aliases-applied-to-quantified-constructs" class="anchor" href="#scalar-aliases-applied-to-quantified-constructs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scalar aliases applied to quantified constructs</h3>
 
-<p>All of the above semantics apply equally to aliases which are bound to
-quantified structures.</p>
-
-<p>The only difference is that, if the aliased construct is a subrule or
+<ul>
+<li>All of the above semantics apply equally to aliases which are bound to
+quantified structures.</li>
+<li>The only difference is that, if the aliased construct is a subrule or
 subpattern, that quantified subrule or subpattern will have returned a
-list of <code>Match</code> objects (as described in L and L).
+list of <code>Match</code> objects (as described in <a href="#quantified-subpattern-captures">"Quantified subpattern
+captures"</a> and <a href="#repeated-captures-of-the-same-subrule">"Repeated captures of the same subrule"</a>).
 So the corresponding array element or hash entry for the alias will
-contain an array, instead of a single <code>Match</code> object.</p>
-
+contain an array, instead of a single <code>Match</code> object.</li>
+<li>
 <p>In other words, aliasing and quantification are completely orthogonal.
 For example:</p>
 
@@ -3645,6 +3837,7 @@ For example:</p>
      # $/&lt;file&gt; does not exist (it's suppressed by the dot)
  }
 
+
  if m/ mv \s+ $&lt;from&gt;=(\S+ \s+)* / {
      # Quantified subpattern returns a list of Match objects,
      # so $/&lt;from&gt; contains an array of Match
@@ -3653,27 +3846,35 @@ For example:</p>
      # $0 does not exist (it's pre-empted by the alias)
  }
 </code></pre>
-
-<p>Note, however, that a set of quantified I brackets always
+</li>
+<li>
+<p>Note, however, that a set of quantified <em>non-capturing</em> brackets always
 returns a single <code>Match</code> object which contains only the complete
 substring that was matched by the full set of repetitions of the
-brackets (as described in L). For example:</p>
+brackets (as described in <a href="#named-scalar-aliases-applied-to-non-capturing-brackets">"Named scalar aliases applied to
+non-capturing brackets"</a>). For example:</p>
 
 <pre><code> "coffee fifo fumble" ~~ m/ $&lt;effs&gt;=[f &lt;-[f]&gt; ** 1..2 \s*]+ /;
 
  say $&lt;effs&gt;;    # prints "fee fifo fum"
 </code></pre>
+</li>
+</ul>
 
-<p>=head3 Array aliasing</p>
+<h3>
+<a id="array-aliasing" class="anchor" href="#array-aliasing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Array aliasing</h3>
 
+<ul>
+<li>
 <p>An alias can also be specified using an array as the alias instead of a scalar.
 For example:</p>
 
 <pre><code> m/ mv \s+ @&lt;from&gt;=[(\S+) \s+]* &lt;dir&gt; /;
 </code></pre>
-
-<p>Using the C&lt;&lt; <a href="https://github.com/alias" class="user-mention">@alias</a>= &gt;&gt; notation instead of a C&lt;&lt; $alias= &gt;&gt;
-mandates that the corresponding hash entry or array element <code>always</code>
+</li>
+<li>
+<p>Using the <code>@alias=</code> notation instead of a <code>$alias=</code>
+mandates that the corresponding hash entry or array element <em>always</em>
 receives an array of <code>Match</code> objects, even if the
 construct being aliased would normally return a single <code>Match</code> object.
 This is useful for creating consistent capture semantics across
@@ -3689,9 +3890,10 @@ branches):</p>
 
  say @($/&lt;names&gt;);
 </code></pre>
-
-<p>For convenience and consistency, C&lt;&lt; @ &gt;&gt; can also be used outside a
-regex, as a shorthand for C&lt;&lt; @( $/ ) &gt;&gt;. That is:</p>
+</li>
+<li>
+<p>For convenience and consistency, <code>@&lt;key&gt;</code> can also be used outside a
+regex, as a shorthand for <code>@( $/&lt;key&gt; )</code>. That is:</p>
 
 <pre><code> ms/ Mr?s? @&lt;names&gt;=&lt;ident&gt; W\. @&lt;names&gt;=&lt;ident&gt;
     | Mr?s? @&lt;names&gt;=&lt;ident&gt;
@@ -3699,7 +3901,8 @@ regex, as a shorthand for C&lt;&lt; @( $/ ) &gt;&gt;. That is:</p>
 
  say @&lt;names&gt;;
 </code></pre>
-
+</li>
+<li>
 <p>If an array alias is applied to a quantified pair of non-capturing
 brackets, it captures the substrings matched by each repetition of the
 brackets into separate elements of the corresponding array. That is:</p>
@@ -3717,7 +3920,8 @@ brackets into separate elements of the corresponding array. That is:</p>
                                  # repetition of the non-
                                  # capturing bracket match
 </code></pre>
-
+</li>
+<li>
 <p>If an array alias is applied to a quantified pair of capturing parens
 (i.e. to a subpattern), then the corresponding hash or array element is
 assigned a list constructed by concatenating the array values of each
@@ -3736,6 +3940,7 @@ subpattern captures within the aliased subpattern. For example:</p>
      }
  }
 
+
  if ms/ @&lt;pairs&gt;=( (\w+) \: (\N+) )+ / {
      # Array alias, so $/&lt;pairs&gt; is assigned an array
      # of Match objects, each of which is flattened out of
@@ -3747,7 +3952,8 @@ subpattern captures within the aliased subpattern. For example:</p>
      }
  }
 </code></pre>
-
+</li>
+<li>
 <p>Likewise, if an array alias is applied to a quantified subrule, then the
 hash or array element corresponding to the alias is assigned a list
 containing the array values of each <code>Match</code> object returned by each
@@ -3766,6 +3972,7 @@ repetition of the subrule, all flattened into a single array:</p>
      }
  }
 
+
  if ms/ mv @&lt;pairs&gt;=&lt;pair&gt;+ / {
      # Array alias, so $/&lt;pairs&gt; contains an array of
      # Match objects, all flattened down from the
@@ -3778,12 +3985,12 @@ repetition of the subrule, all flattened into a single array:</p>
      }
  }
 </code></pre>
-
-<p>In other words, an array alias is useful to flatten into a single array
+</li>
+<li><p>In other words, an array alias is useful to flatten into a single array
 any nested captures that might occur within a quantified subpattern or subrule.
 Whereas a scalar alias is useful to preserve within a top-level array
-the internal structure of each repetition.</p>
-
+the internal structure of each repetition.</p></li>
+<li>
 <p>It is also possible to use a numbered variable as an array alias.
 The semantics are exactly as described above, with the sole difference
 being that the resulting array of <code>Match</code> objects is assigned into the
@@ -3807,29 +4014,34 @@ its match hash. For example:</p>
      $to_gap   = $1[0][1];   #    unflattened list
  }
 </code></pre>
-
-<p>Note again that, outside a regex, C<a href="mailto:@0">@0</a> is simply a shorthand for
-C&lt;@($0)&gt;, so the first assignment above could also have been written:</p>
+</li>
+<li>
+<p>Note again that, outside a regex, <code>@0</code> is simply a shorthand for
+<code>@($0)</code>, so the first assignment above could also have been written:</p>
 
 <pre><code> @from = @0;
 </code></pre>
+</li>
+</ul>
 
-<p>=head3 Hash aliasing</p>
+<h3>
+<a id="hash-aliasing" class="anchor" href="#hash-aliasing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hash aliasing</h3>
 
+<ul>
+<li>
 <p>An alias can also be specified using a hash as the alias variable,
 instead of a scalar or an array. For example:</p>
 
 <pre><code> m/ mv %&lt;location&gt;=( (&lt;ident&gt;) \: (\N+) )+ /;
 </code></pre>
-
-<p>A hash alias causes the corresponding hash or array element in the
+</li>
+<li><p>A hash alias causes the corresponding hash or array element in the
 current scope's <code>Match</code> object to be assigned a (nested) Hash object
-(rather than an <code>Array</code> object or a single <code>Match</code> object).</p>
-
-<p>If a hash alias is applied to a subrule or subpattern then the first nested
+(rather than an <code>Array</code> object or a single <code>Match</code> object).</p></li>
+<li>If a hash alias is applied to a subrule or subpattern then the first nested
 numeric capture becomes the key of each hash entry and any remaining numeric
-captures become the values (in an array if there is more than one).</p>
-
+captures become the values (in an array if there is more than one).</li>
+<li>
 <p>As with array aliases it is also possible to use a numbered variable as
 a hash alias. Once again, the only difference is where the resulting
 <code>Match</code> object is stored:</p>
@@ -3838,7 +4050,7 @@ a hash alias. Once again, the only difference is where the resulting
 
  if ms/ %0=&lt;one_to_many&gt;+ / {
      # $/[0] contains a hash, in which each key is provided by
-     # the first subcapture within `one_to_many`, and each
+     # the first subcapture within C&lt;one_to_many&gt;, and each
      # value is an array containing the
      # subrule's second, third, fourth, etc. subcaptures...
 
@@ -3848,57 +4060,66 @@ a hash alias. Once again, the only difference is where the resulting
      }
  }
 </code></pre>
-
-<p>Outside the regex, C&lt;%0&gt; is a shortcut for C&lt;%($0)&gt;:</p>
+</li>
+<li>
+<p>Outside the regex, <code>%0</code> is a shortcut for <code>%($0)</code>:</p>
 
 <pre><code>     for %0 -&gt; $pair {
          say "One:  $pair.key()";
          say "Many: @($pair.value)";
      }
 </code></pre>
+</li>
+</ul>
 
-<p>=head3 External aliasing</p>
+<h3>
+<a id="external-aliasing" class="anchor" href="#external-aliasing" aria-hidden="true"><span class="octicon octicon-link"></span></a>External aliasing</h3>
 
+<ul>
+<li>
 <p>Instead of using internal aliases like:</p>
 
 <pre><code> m/ mv  @&lt;files&gt;=&lt;ident&gt;+  $&lt;dir&gt;=&lt;ident&gt; /
 </code></pre>
 
-<p>the name of an ordinary variable can be used as an <code>external</code> alias, like so:</p>
+<p>the name of an ordinary variable can be used as an <em>external</em> alias, like so:</p>
 
 <pre><code> m/ mv  @OUTER::files=&lt;ident&gt;+  $OUTER::dir=&lt;ident&gt; /
 </code></pre>
-
-<p>In this case, the behavior of each alias is exactly as described in the
+</li>
+<li><p>In this case, the behavior of each alias is exactly as described in the
 previous sections, except that any resulting capture is bound
 directly (but still hypothetically) to the variable of the specified
-name that must already exist in the scope in which the regex is declared.</p>
+name that must already exist in the scope in which the regex is declared.</p></li>
+</ul>
 
-<p>=head2 Capturing from repeated matches</p>
+<h2>
+<a id="capturing-from-repeated-matches" class="anchor" href="#capturing-from-repeated-matches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Capturing from repeated matches</h2>
 
-<p>When an entire regex is successfully matched with repetitions
-(specified via the C&lt;:x&gt; or <code>:g</code> flag) or overlaps (specified via the
-C&lt;:ov&gt; or C&lt;:ex&gt; flag), it will usually produce a sequence
-of distinct matches.</p>
-
+<ul>
+<li>When an entire regex is successfully matched with repetitions
+(specified via the <code>:x</code> or <code>:g</code> flag) or overlaps (specified via the
+<code>:ov</code> or <code>:ex</code> flag), it will usually produce a sequence
+of distinct matches.</li>
+<li>
 <p>A successful match under any of these flags still returns a single
 <code>Match</code> object in <code>$/</code>. However, this object may represent a partial
 evaluation of the regex.   Moreover, the values of this match object
 are slightly different from those provided by a non-repeated match:</p>
 
-<p>The boolean value of <code>$/</code> after such matches is true or false, depending on
-whether the pattern matched.</p>
-
-<p>The string value is the substring from the start of the first match to
-the end of the last match (<code>including</code> any intervening parts of the
-string that the regex skipped over in order to find later matches).</p>
-
-<p>Subcaptures are returned as a multidimensional list, which the user can
+<ul>
+<li>The boolean value of <code>$/</code> after such matches is true or false, depending on
+whether the pattern matched.</li>
+<li>The string value is the substring from the start of the first match to
+the end of the last match (<em>including</em> any intervening parts of the
+string that the regex skipped over in order to find later matches).</li>
+<li>Subcaptures are returned as a multidimensional list, which the user can
 choose to process in either of two ways.  If you refer to
-C&lt;@().flat&gt; (or just use C&lt;@()&gt; in a flat list context), the multidimensionality
+<code>@().flat</code> (or just use <code>@()</code> in a flat list context), the multidimensionality
 is ignored and all the matches are returned flattened (but still lazily).  If
-you refer to C, you can get each individual sublist as a <code>Parcel</code>
-object. As with any multidimensional list, each sublist can be lazy separately.</p>
+you refer to <code>lol()</code>, you can get each individual sublist as a <code>Parcel</code>
+object. As with any multidimensional list, each sublist can be lazy separately.</li>
+</ul>
 
 <p>For example:</p>
 
@@ -3920,17 +4141,19 @@ match is also available:</p>
      }
  }
 </code></pre>
+</li>
+</ul>
 
 <h1>
 <a id="grammars" class="anchor" href="#grammars" aria-hidden="true"><span class="octicon octicon-link"></span></a>Grammars</h1>
 
-<p>Your private <code>ident</code> rule shouldn't clobber someone else's
-<code>ident</code> rule.  So some mechanism is needed to confine rules to a namespace.</p>
-
-<p>If subs are the model for rules, then modules/classes are the obvious
+<ul>
+<li>Your private <code>ident</code> rule shouldn't clobber someone else's
+<code>ident</code> rule.  So some mechanism is needed to confine rules to a namespace.</li>
+<li>If subs are the model for rules, then modules/classes are the obvious
 model for aggregating them.  Such collections of rules are generally
-known as <code>grammars</code>.</p>
-
+known as <em>grammars</em>.</li>
+<li>
 <p>Just as a class can collect named actions together:</p>
 
 <pre><code> class Identity {
@@ -3963,7 +4186,8 @@ known as <code>grammars</code>.</p>
      # etc.
  }
 </code></pre>
-
+</li>
+<li>
 <p>Like classes, grammars can inherit:</p>
 
 <pre><code> grammar Letter {
@@ -3984,38 +4208,45 @@ known as <code>grammars</code>.</p>
 
  }
 </code></pre>
-
-<p>Just like the methods of a class, the rule definitions of a grammar are
+</li>
+<li><p>Just like the methods of a class, the rule definitions of a grammar are
 inherited (and polymorphic!). So there's no need to respecify <code>text</code>,
-<code>line</code>, etc.</p>
-
-<p>Perl 6 will come with at least one grammar predefined:</p>
+<code>line</code>, etc.</p></li>
+<li>
+<p>Perl 6 will come with at least one grammar predefined:</p>
 
 <pre><code> grammar STD {    # Perl's own standard grammar
+
      rule prog { &lt;statement&gt;* }
+
      rule statement {
                | &lt;decl&gt;
                | &lt;loop&gt;
                | &lt;label&gt; [&lt;cond&gt;|&lt;sideff&gt;|';']
      }
+
      rule decl { &lt;sub&gt; | &lt;class&gt; | &lt;use&gt; }
+
      # etc. etc. etc.
  }
 </code></pre>
-
+</li>
+<li>
 <p>Hence:</p>
 
 <pre><code> $parsetree = STD.parse($source_code)
 </code></pre>
-
+</li>
+<li>
 <p>To switch to a different grammar in the middle of a regex, you may use the <code>:lang</code> adverb.
 For example, to match an expression  from $funnylang that is embedded in curlies, say:</p>
 
 <pre><code>token funnylang { '{' [ :lang($funnylang.unbalanced('}')) &lt;expr&gt; ] '}' }
 </code></pre>
-
-<p>A string can be matched against a grammar by calling C&lt;.parse&gt;
-or C&lt;.parsefile&gt; on the grammar, and optionally pass an <code>actions</code>
+</li>
+<li>
+<p>A string can be matched against a grammar by calling <code>.parse</code>
+or <code>.parsefile</code> on the grammar, and optionally pass an <em>actions</em>
 object to that grammar:</p>
 
 <pre><code>MyGrammar.parse($string, :actions($action-object))
@@ -4028,28 +4259,30 @@ All grammar objects are derived from <code>Cursor</code>, so every grammar objec
 value embodies the current state of the current match.  This new grammar
 object is then passed as the invocant to the <code>TOP</code> method (regex, token,
 or rule) of <code>MyGrammar</code>. The default rule name to call can be overridden with
-the C&lt;:rule&gt; named argument of the <code>parse</code> method. This is useful for unit testing
-the rules of a grammar. As methods, rules can have arguments, so the C&lt;:args&gt; named
+the <code>:rule</code> named argument of the <code>parse</code> method. This is useful for unit testing
+the rules of a grammar. As methods, rules can have arguments, so the <code>:args</code> named
 argument is used to pass such arguments as a parcel if necessary.</p>
 
 <p>Grammar objects are considered immutable, so
 every match returns a different match state, and multiple match states may
 exist simultaneously.  Each such match state is considered a hypothesis on
-how the pattern will eventually match. A backtrackable choice in pattern
-matching may be easily represented in Perl-6 as a lazy list of match state
+how the pattern will eventually match.  A backtrackable choice in pattern
+matching may be easily represented in Perl 6 as a lazy list of match state
 cursors; backtracking consists of merely throwing away the front value of
 the list and continuing to match with the next value.  Hence, the management
 of these match cursors controls how backtracking works, and falls naturally
 out of the lazy list paradigm.</p>
 
-<p>The C&lt;.parse&gt; and C&lt;.parsefile&gt; methods anchor to the beginning and ending of the text,
-and fail if the end of text is not reached. (The <code>TOP</code> rule can check against <code>$</code> itself
+<p>The <code>.parse</code> and <code>.parsefile</code> methods anchor to the beginning and ending of the text,
+and fail if the end of text is not reached.  (The <code>TOP</code> rule can check against <code>$</code> itself
 if it wishes to produce its own error message.)</p>
 
-<p>If you wish to parse a portion of a text, then use the C&lt;.subparse&gt; method instead.
-You may pass a C&lt;:pos&gt; argument to start parsing at some position other than 0.
-You may pass a C&lt;:rule&gt; argument to specify which subrule you're wanting to call.
+<p>If you wish to parse a portion of a text, then use the <code>.subparse</code> method instead.
+You may pass a <code>:pos</code> argument to start parsing at some position other than 0.
+You may pass a <code>:rule</code> argument to specify which subrule you're wanting to call.
 The final position can be determined by examining the returned <code>Match</code> object.</p>
+</li>
+</ul>
 
 <h1>
 <a id="syntactic-categories" class="anchor" href="#syntactic-categories" aria-hidden="true"><span class="octicon octicon-link"></span></a>Syntactic categories</h1>
@@ -4082,31 +4315,34 @@ use token :foo;     # control token defaults
 use rule :foo;      # control rule defaults
 </code></pre>
 
-<p>(It is a general policy in Perl 6 that any pragma designed to influence
+<p>(It is a general policy in Perl 6 that any pragma designed to influence
 the surface behavior of a keyword is identical to the keyword itself, unless
-there is good reason to do otherwise. On the other hand, pragmas designed
+there is good reason to do otherwise.  On the other hand, pragmas designed
 to influence deep semantics should not be named identically, though of
 course some similarity is good.)</p>
 
 <h1>
 <a id="transliteration" class="anchor" href="#transliteration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Transliteration</h1>
 
-<p>The C</p> quote-like operator now also has a method form called
-C.  Its argument is a list of pairs.  You can use anything that
-produces a pair list:
+<ul>
+<li>
+<p>The <code>tr///</code> quote-like operator now also has a method form called
+<code>trans()</code>.  Its argument is a list of pairs.  You can use anything that
+produces a pair list:</p>
 
 <pre><code> $str.trans( %mapping.pairs );
 </code></pre>
 
-<p>Use the C&lt;.=&gt; form to do a translation in place:</p>
+<p>Use the <code>.=</code> form to do a translation in place:</p>
 
 <pre><code> $str.=trans( %mapping.pairs );
 </code></pre>
 
-<p>(Perl 6 does not support the C form, which was only in <code>sed</code> because
+<p>(Perl 6 does not support the <code>y///</code> form, which was only in <code>sed</code> because
 they were running out of single letters.)</p>
-
-<p>The two sides of any pair can be strings interpreted as C</p> would:
+</li>
+<li>
+<p>The two sides of any pair can be strings interpreted as <code>tr///</code> would:</p>
 
 <pre><code> $str.=trans( 'A..C' =&gt; 'a..c', 'XYZ' =&gt; 'xyz' );
 </code></pre>
@@ -4123,7 +4359,8 @@ interpolations in double quotes.  If the right side is too short, the
 final character is replicated out to the length of the left string.
 If there is no final character because the right side is the null
 string, the result is deletion instead.</p>
-
+</li>
+<li>
 <p>Either or both sides of the pair may also be Array objects:</p>
 
 <pre><code> $str.=trans( ['A'..'C'] =&gt; ['a'..'c'], &lt;X Y Z&gt; =&gt; &lt;x y z&gt; );
@@ -4133,7 +4370,8 @@ string, the result is deletion instead.</p>
 the string form is exactly equivalent to first doing <code>..</code> expansion
 and then splitting the string into individual characters and then
 using that as an array.</p>
-
+</li>
+<li>
 <p>The array version can map one-or-more characters to one-or-more
 characters:</p>
 
@@ -4147,7 +4385,8 @@ first in order wins.</p>
 
 <p>As with the string form, missing righthand elements replicate the
 final element, and a null array results in deletion instead.</p>
-
+</li>
+<li>
 <p>The recognition done by the string and array forms is very basic.
 To achieve greater power, any recognition element of the left side
 may be specified by a regex that can do character classes, lookahead,
@@ -4166,10 +4405,11 @@ longest token rules apply across all the possible matches specified to the
 transliteration operator.  Once a match is made and transliterated, the parallel
 matching resumes at the new position following the end of the previous match,
 even if it matched multiple characters.</p>
-
-<p>If the right side of the arrow is a closure, it is evaluated to
+</li>
+<li><p>If the right side of the arrow is a closure, it is evaluated to
 determine the replacement value.  If the left side was matched by a
-regex, the resulting match object is available within the closure.</p>
+regex, the resulting match object is available within the closure.</p></li>
+</ul>
 
 <h1>
 <a id="substitution" class="anchor" href="#substitution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Substitution</h1>
@@ -4206,8 +4446,8 @@ is the standard "triple quote" form:</p>
 right side is always evaluated as if it were a double-quoted string
 regardless of the quote chosen.</p>
 
-<p>As with Perl 5, a bracketing form is also supported, but unlike Perl 5,
-Perl 6 uses the brackets <code>only</code> around the pattern.  The replacement
+<p>As with Perl 5, a bracketing form is also supported, but unlike Perl 5,
+Perl 6 uses the brackets <em>only</em> around the pattern.  The replacement
 is then specified as if it were an ordinary item assignment, with ordinary
 quoting rules.  To pick your own quotes on the right just use one of the <code>q</code>
 forms.  The substitution above is equivalent to:</p>
@@ -4256,11 +4496,11 @@ method call.)</p>
 
 <p>You'll note from the last example that substitutions only happen on
 the "official" string result of the match, that is, the portion of
-the string between the C&lt;$/.from&gt; and C&lt;$/.to&gt; positions.
-(Here we set those explicitly using the C&lt;&lt; &lt;(...)&gt; &gt;&gt; pair; otherwise we
+the string between the <code>$/.from</code> and <code>$/.to</code> positions.
+(Here we set those explicitly using the <code>&lt;(...)&gt;</code> pair; otherwise we
 would have had to use lookbehind to match the <code>$</code>.)</p>
 
-<p>Please note that the <code>:ii</code>/<code>:samecase</code> and <code>:mm</code>/C&lt;:samemark&gt;
+<p>Please note that the <code>:ii</code>/<code>:samecase</code> and <code>:mm</code>/<code>:samemark</code>
 switches are really two different modifiers in one, and when the compiler desugars
 the quote-like forms it distributes semantics to both the pattern
 and the replacement.  That is, <code>:ii</code> on the replacement implies a <code>:i</code> on the
@@ -4282,7 +4522,7 @@ s:mm/boo/far/
 .subst(rx:m/boo/, 'far', :mm)   # okay
 </code></pre>
 
-<p>It is specifically <code>not</code> required of an implementation that it treat
+<p>It is specifically <em>not</em> required of an implementation that it treat
 the regexes as generic with respect to case and mark.  Retroactive
 recompilation is considered harmful.  If an implementation does do lazy
 generic case and mark semantics, it is erroneous and non-portable
@@ -4309,36 +4549,41 @@ match is represented by <code>Nil</code>, not by a false <code>Match</code> obje
 <h1>
 <a id="positional-matching-fixed-width-types" class="anchor" href="#positional-matching-fixed-width-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Positional matching, fixed width types</h1>
 
+<ul>
+<li>
 <p>To anchor to a particular position in the general case you can use
-the C&lt;&lt;  &gt;&gt; assertion to say that the current position
+the <code>&lt;at($pos)&gt;</code> assertion to say that the current position
 is the same as the position object you supply.  You may set the
 current match position via the <code>:c</code> and <code>:p</code> modifiers.</p>
 
-<p>However, please remember that in Perl 6 string positions are generally
-<code>not</code> integers, but objects that point to a particular place in
+<p>However, please remember that in Perl 6 string positions are generally
+<em>not</em> integers, but objects that point to a particular place in
 the string regardless of whether you count by bytes or codepoints or
 graphemes.  If used with an integer, the <code>at</code> assertion will assume
 you mean the current lexically scoped Unicode level, on the assumption
 that this integer was somehow generated in this same lexical scope.
 If this is outside the current string's allowed Unicode abstraction levels, an
 exception is thrown.  See S02 for more discussion of string positions.</p>
-
-<p><code>Buf</code> types are based on fixed-width cells and can therefore
+</li>
+<li><p><code>Buf</code> types are based on fixed-width cells and can therefore
 handle integer positions just fine, and treat them as array indices.
 In particular, <code>buf8</code> (also known as <code>buf</code>) is just an old-school byte string.
 Matches against <code>Buf</code> types are restricted to ASCII semantics in
-the absence of an <code>explicit</code> modifier asking for the array's values
+the absence of an <em>explicit</em> modifier asking for the array's values
 to be treated as some particular encoding such as UTF-32.  (This is
 also true for those compact arrays that are considered isomorphic to
 <code>Buf</code> types.)  Positions within <code>Buf</code> types are always integers,
 counting one per unit cell of the underlying array.  Be aware that
 "from" and "to" positions are reported as being between elements.
-If matching against a compact array C<a href="mailto:@foo">@foo</a>, a final position of 42
-indicates that C&lt;<a href="https://github.com/foo" class="user-mention">@foo</a>[42]&gt; was the first element <code>not</code> included.</p>
+If matching against a compact array <code>@foo</code>, a final position of 42
+indicates that <code>@foo[42]</code> was the first element <em>not</em> included.</p></li>
+</ul>
 
 <h1>
 <a id="matching-against-non-strings" class="anchor" href="#matching-against-non-strings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Matching against non-strings</h1>
 
+<ul>
+<li>
 <p>Anything that can be tied to a string can be matched against a
 regex. This feature is particularly useful with input streams:</p>
 
@@ -4348,7 +4593,8 @@ regex. This feature is particularly useful with input streams:</p>
 
  $stream ~~ m/pattern/;         # match from stream
 </code></pre>
-
+</li>
+<li>
 <p>Any non-compact array of mixed strings or objects can be matched
 against a regex as long as you present them as an object with the <code>Str</code>
 interface, which does not preclude the object having other interfaces
@@ -4357,8 +4603,8 @@ such as <code>Array</code>.  Normally you'd use <code>cat</code> to generate suc
 <pre><code>@array.cat ~~ / foo &lt;,&gt; bar &lt;elem&gt;* /;
 </code></pre>
 
-<p>The special C&lt;&lt; &lt;,&gt; &gt;&gt; subrule matches the boundary between elements.
-The C&lt;&lt;  &gt;&gt; assertion matches any individual array element.
+<p>The special <code>&lt;,&gt;</code> subrule matches the boundary between elements.
+The <code>&lt;elem&gt;</code> assertion matches any individual array element.
 It is the equivalent of the "dot" metacharacter for the whole element.</p>
 
 <p>If the array elements are strings, they are concatenated virtually into
@@ -4380,24 +4626,28 @@ Any object may, of course, pretend to be a string element if it likes,
 and so a <code>Cat</code> object may be used as a substring with the same restrictions
 as in the main string.</p>
 
-<p>Please be aware that the warnings on C&lt;.from&gt; and C&lt;.to&gt; returning
+<p>Please be aware that the warnings on <code>.from</code> and <code>.to</code> returning
 opaque objects goes double for matching against an array, where a
 particular position reflects both a position within the array and
 (potentially) a position within a string of that array.  Do not
 expect to do math with such values.  Nor should you expect to be
 able to extract a substr that crosses element boundaries.
 [Conjecture: Or should you?]</p>
-
+</li>
+<li>
 <p>To match against every element of an array, use a hyper operator:</p>
 
-<pre><code> @array».match($regex);
+<pre><code> @array?.match($regex);
 </code></pre>
-
+</li>
+<li>
 <p>To match against any element of the array, it suffices to use ordinary
 smartmatching:</p>
 
 <pre><code>@array ~~ $regex;
 </code></pre>
+</li>
+</ul>
 
 <h1>
 <a id="when--is-valid" class="anchor" href="#when--is-valid" aria-hidden="true"><span class="octicon octicon-link"></span></a>When <code>$/</code> is valid</h1>
@@ -4409,9 +4659,8 @@ embedded closure, or even evaluating a submatch that requires a Perl
 expression for its argument).  Within regex code, <code>$/</code> is officially
 undefined, and references to <code>$0</code> or other capture variables may
 be compiled to produce the current value without reference to <code>$/</code>.
-Likewise a reference to <code>$&lt;foo&gt;</code> does not necessarily mean
-<code>$/&lt;foo&gt;</code> within the regex proper.  During the execution of a match,
-the current match state is actually stored in a <code>$¢</code> variable
+Likewise a reference to <code>$&lt;foo&gt;</code> does not necessarily mean <code>$/&lt;foo&gt;</code> within the regex proper.  During the execution of a match,
+the current match state is actually stored in a <code>$?</code> variable
 lexically scoped to an appropriate portion of the match, but that is
 not guaranteed to behave the same as the <code>$/</code> object, because <code>$/</code>
 is of type <code>Match</code>, while the match state is of a type derived from <code>Cursor</code>.</p>
@@ -4419,8 +4668,7 @@ is of type <code>Match</code>, while the match state is of a type derived from <
 <p>In any case this is all transparent to the user for simple matches;
 and outside of regex code (and inside closures within the regex)
 the <code>$/</code> variable is guaranteed to represent the state of the match
-at that point.  That is, normal Perl code can always depend on
-<code>$&lt;foo&gt;</code> meaning <code>$/&lt;foo&gt;</code>, and <code>$0</code> meaning <code>$/[0]&gt;</code>, whether
+at that point.  That is, normal Perl code can always depend on <code>$&lt;foo&gt;</code> meaning <code>$/&lt;foo&gt;</code>, and <code>$0</code> meaning <code>$/[0]</code>, whether
 that code is embedded in a closure within the regex or outside the
 regex after the match completes.</p>
 
@@ -4434,10 +4682,15 @@ Larry Wall &lt;larry@wall.org&gt;
 Moritz Lenz &lt;moritz@faui2k3.org&gt;
 Tobias Leich &lt;email@froggs.de&gt;
 </code></pre>
-      </section>
+        </section>
 
+        <footer>
+          Perldoc-cn is maintained by <a href="https://github.com/songzan">songzan</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>
